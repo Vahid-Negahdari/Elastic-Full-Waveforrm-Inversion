@@ -195,8 +195,8 @@ for i in range(num_BIG_BATCH):
         RhoU[j, :, :]         = u*np.expand_dims(MM,axis=1)
 
 
-    np.save(path / ('scatt_Real' + str(i))   , np.real(Displacement))
-    np.save(path / ('scatt_Complex' + str(i)), np.imag(Displacement))
-    np.save(path / ('surface' + str(i)), Surface)
+    np.save(path / ('Disp_Real' + str(i))   , np.real(Displacement))
+    np.save(path / ('Disp_Complex' + str(i)), np.imag(Displacement))
+    np.save(path / ('Surface' + str(i)), Surface)
     np.save(path / ('RhoU_Real' + str(i))   , np.real(RhoU))
     np.save(path / ('RhoU_Complex' + str(i)), np.imag(RhoU))

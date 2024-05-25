@@ -102,7 +102,7 @@ def Test_Score(epoch):
 
 
 ################################################################
-# Training
+# Training Process
 ################################################################
 for epoch in range(train_epochs):
       avg_Loss = 0
