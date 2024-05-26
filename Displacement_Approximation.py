@@ -69,7 +69,7 @@ def loss_function(y_pred, y_true):
 
 #######################################################
 #######################################################
-def train_step(u, uu,lr):
+def train_step(u, uu):
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
     with tf.GradientTape() as tape:
         preds = model(u)
@@ -123,9 +123,9 @@ for p in range(4):
                 Disp    = np.reshape(Disp, [BIGG_BATCH , k*n**2])
                 if epoch < train_epochs - 1:
                    for s in range(num_batch):
-                      batch_u    = Surface[s * batch_size: (s + 1) * batch_size]
-                      batch_uu   = Disp[s * batch_size  : (s + 1) * batch_size ]
-                      Loss,preds = train_step(batch_u,batch_uu,lr)
+                      batch_u   = Surface[s * batch_size: (s + 1) * batch_size]
+                      batch_uu  = Disp[s * batch_size  : (s + 1) * batch_size ]
+                      Loss      = train_step(batch_u,batch_uu)
                       avg_Loss  +=  Loss / (num_batch*num_BIGG_BATCH)
                 if epoch == train_epochs - 1:
                     preds = model(Surface).numpy()
