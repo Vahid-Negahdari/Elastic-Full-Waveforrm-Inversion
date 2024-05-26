@@ -12,9 +12,9 @@ k  = 9
 
 A   = np.load(path / ('A.npy'), allow_pickle=True)
 ud  = np.load(path / ('ud.npy'), allow_pickle=True)
-Rho = np.load(path / ('Density' + str(27) + '.npy'), allow_pickle=True)
-U1  = np.load(path / ('Appr_Disp_Real' + str(27) + '.npy'), allow_pickle=True)
-U2  = np.load(path / ('Appr_Disp_Complex' + str(27) + '.npy'), allow_pickle=True)
+Rho = np.load(path / ('Density' + str(0) + '.npy'), allow_pickle=True)
+U1  = np.load(path / ('Appr_Disp_Real' + str(0) + '.npy'), allow_pickle=True)
+U2  = np.load(path / ('Appr_Disp_Complex' + str(0) + '.npy'), allow_pickle=True)
 U   = U1 + 1j*U2
 
 
