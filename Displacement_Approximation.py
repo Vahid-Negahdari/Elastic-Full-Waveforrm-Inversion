@@ -81,7 +81,7 @@ def train_step(u, uu):
 
 def Test_Score(epoch,Disp):
     preds = model(Surface_test)
-    loss = loss_function(preds, Disp)
+    loss = loss_function(preds, np.reshape(Disp,[BIGG_BATCH,k*n**2]))
     print("--- On epoch Test {} ---".format(epoch))
     tf.print(" Loss:",loss)
     print("\n")
