@@ -23,11 +23,10 @@ semi           = int(np.ceil(4*n/16)*256)
 # Import Data
 #########################################################
 path  = Path('/home/cvl/Pycharm/pythonProject/Github')
-path2 = Path('/home/cvl/Pycharm/pythonProject/Github')
 
-Surface_test      = np.load(path / ('surface27.npy'), allow_pickle=True)
+Surface_test      = np.load(path / ('Surface27.npy'), allow_pickle=True)
 Surface_test      = np.concatenate((np.real(Surface_test), np.imag(Surface_test)), axis=1)
-Disp_Test         = {'Real':np.load(path / ('Disp_Real27.npy'), allow_pickle=True) ,
+Disp_Test         = {'Real'   :np.load(path / ('Disp_Real27.npy'), allow_pickle=True) ,
                      'Complex':np.load(path / ('Disp_Complex27.npy'), allow_pickle=True) }
 #########################################################
 # Define Some Functions
@@ -129,7 +128,7 @@ for p in range(4):
                     preds = model(Surface).numpy()
                     avg_Loss = loss_function(preds, Disp)
                     preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
-                    np.save(path2 / ('Appr_Disp'+ str(a) + name1 + str(j) + '.npy'),preds)
+                    np.save(path / ('Appr_Disp'+ str(a) + name1 + str(j) + '.npy'),preds)
 
 
           print("--- On epoch {} ---".format(epoch)) ; tf.print(" Loss:", avg_Loss) ; print("\n")
@@ -138,25 +137,25 @@ for p in range(4):
 
     preds =  model(Surface_test).numpy()
     preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
-    np.save(path2 / ('Appr_Disp'+ str(a) + name1 + str(27) + '.npy'), preds)
+    np.save(path / ('Appr_Disp'+ str(a) + name1 + str(27) + '.npy'), preds)
 
 
 
 
-del Surface
-del Disp
+# del Surface
+# del Disp
 
 for j in range(num_BIGG_BATCH + 1 ):
-    pathh1 = path2/Path('Appr_Disp0Real' + str(j) + '.npy')
-    pathh2 = path2/Path('Appr_Disp1Real' + str(j) + '.npy')
+    pathh1 = path/Path('Appr_Disp0Real' + str(j) + '.npy')
+    pathh2 = path/Path('Appr_Disp1Real' + str(j) + '.npy')
     A = np.load(pathh1, allow_pickle=True).astype('float32')
     B = np.load(pathh2, allow_pickle=True).astype('float32')
-    np.save(path2 / ('Appr_Disp_Real' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
+    np.save(path / ('Appr_Disp_Real' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
 
-    pathh3 = path2/Path('Appr_Disp0Complex' + str(j) + '.npy')
-    pathh4 = path2/Path('Appr_Disp1Complex' + str(j) + '.npy')
+    pathh3 = path/Path('Appr_Disp0Complex' + str(j) + '.npy')
+    pathh4 = path/Path('Appr_Disp1Complex' + str(j) + '.npy')
     A = np.load(pathh3, allow_pickle=True).astype('float32')
     B = np.load(pathh4, allow_pickle=True).astype('float32')
-    np.save(path2 / ('Appr_Disp_Complex' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
+    np.save(path / ('Appr_Disp_Complex' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
 
     pathh1.unlink() ; pathh2.unlink() ; pathh3.unlink() ; pathh4.unlink()

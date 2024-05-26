@@ -9,7 +9,7 @@ from pathlib import Path
 # Define Hyperparameter
 #########################################################
 
-train_epochs   = 18
+train_epochs   = 2
 batch_size     = 25
 num_BIGG_BATCH = 27
 BIGG_BATCH     = 1000
@@ -22,14 +22,14 @@ semi           = int(np.ceil(2*(n**2)/16)*256)
 #########################################################
 # Import Data
 #########################################################
+path  = Path('/home/cvl/Pycharm/pythonProject/Github')
 
-path  = Path('/home/cvl/Pycharm/pythonProject/Final/L10K40')
-path2 = Path('/home/cvl/Pycharm/pythonProject/Final/L10K40/L2')
+Disp_appr_test = {'Real'   : np.load(path / ('Appr_Disp_Real27.npy'), allow_pickle=True) ,
+                  'Complex': np.load(path / ('Appr_Disp_Complex27.npy'), allow_pickle=True) }
 
-Surface_test      = np.load(path / ('surface27.npy'), allow_pickle=True)
-Surface_test      = np.concatenate((np.real(Surface_test), np.imag(Surface_test)), axis=1)
-Disp_Test         = {'Real'   :np.load(path / ('Disp_Real27.npy'), allow_pickle=True) ,
-                     'Complex':np.load(path / ('Disp_Complex27.npy'), allow_pickle=True) }
+
+RhoU_test      = {'Real'   : np.load(path / ('RhoU_Real27.npy'), allow_pickle=True) ,
+                  'Complex': np.load(path / ('RhoU_Complex27.npy'), allow_pickle=True) }
 
 #########################################################
 # Define Some Functions
@@ -80,9 +80,9 @@ def train_step(u,uu):
         optimizer.apply_gradients(zip(grads, weights ))
         return current_loss
 
-def Test_Score(epoch,Disp):
-    preds = model(Disp_test)
-    loss = loss_function(preds, np.reshape(Disp,[BIGG_BATCH,k*n**2]))
+def Test_Score(epoch,Disp,rhou):
+    preds = model(Disp)
+    loss = loss_function(preds, np.reshape(rhou,[BIGG_BATCH,k*n**2]))
     print("--- On epoch Test {} ---".format(epoch)) ; tf.print(" Loss:",loss) ; print("\n")
 
 #######################################################
@@ -121,7 +121,7 @@ for p in range(4):
               if np.mod(epoch,2)==0 :
                  lr=lr/2
               for j in range(num_BIGG_BATCH):
-                    Disp_appr = np.load(path2 / ('Appr_Disp' +name1 + str(j) + '.npy' ), allow_pickle=True).astype('float32')[:,:,K]
+                    Disp_appr = np.load(path / ('Appr_Disp_' +name1 + str(j) + '.npy' ), allow_pickle=True).astype('float32')[:,:,K]
                     RhoU      = np.load(path / ('RhoU_' + name1 + str(j) + '.npy'), allow_pickle=True)[:,a*n**2:(a+1)*n**2,K]
                     RhoU   = np.reshape  (RhoU, [BIGG_BATCH , k*n**2])
                     if epoch < train_epochs - 1:
@@ -134,50 +134,43 @@ for p in range(4):
                         preds = model(Disp_appr).numpy()
                         avg_Loss = loss_function(preds, RhoU)
                         preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
-                        np.save(path2 / (str(t) + 'Appr_RhoU' + str(a) + name1 + str(j) + '.npy'), preds)
+                        np.save(path / (str(t) + 'Appr_RhoU' + str(a) + name1 + str(j) + '.npy'), preds)
 
               print("--- On epoch {} ---".format(epoch)) ; tf.print(" Loss:", avg_Loss) ; print("\n")
               if (epoch % 3 == 0):
-                 Test_Score(epoch, RhoU_test[name1][:, a * n ** 2:(a + 1) * n ** 2, K])
+                 Test_Score(epoch,Disp_appr_test[name1][:,:,K], RhoU_test[name1][:, a * n ** 2:(a + 1) * n ** 2, K])
 
 
-        preds   =  model(Disp_appr_test).numpy()
-        preds   = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
-        np.save(path2 / (str(t) +'Appr_RhoU' + str(a) + name1 + str(27) + '.npy'), preds)
+        preds = model(Disp_appr_test[name1][:,:,K]).numpy()
+        preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
+        np.save(path / (str(t) +'Appr_RhoU' + str(a) + name1 + str(27) + '.npy'), preds)
 
 
 
-del Fake_sp
-del Surface
-del Scatt
+# del Fake_sp
+# del Surface
+# del Scatt
 
 for j in range(num_BIGG_BATCH+1):
+    A = np.zeros([1000,2*(n**2),9],'float32')
+    B = np.zeros([1000,2*(n**2),9],'float32')
+    for t in range(3):
 
-    A1 = np.load(path2 / ('Fake_sp_Real_H' + str(0)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    A2 = np.load(path2 / ('Fake_sp_Real_H' + str(1)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    A3 = np.load(path2 / ('Fake_sp_Real_H' + str(2)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    A  = np.concatenate((np.concatenate((A1, A2), axis=2), A3), axis=2)
-
-
-    B1 = np.load(path2 / ('Fake_sp_Real_V' + str(0)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    B2 = np.load(path2 / ('Fake_sp_Real_V' + str(1)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    B3 = np.load(path2 / ('Fake_sp_Real_V' + str(2)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    B = np.concatenate((np.concatenate((B1, B2), axis=2), B3), axis=2)
-
-    np.save(path2 / ('Fake_splash_Real' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
+        pathh1 = path/Path(str(t) + 'Appr_RhoU0Real'  + str(j) + '.npy')
+        pathh2 = path/Path(str(t) + 'Appr_RhoU1Real'  + str(j) + '.npy')
+        A1     = np.load(pathh1, allow_pickle=True).astype('float32')
+        A2     = np.load(pathh2, allow_pickle=True).astype('float32')
+        A[:,:,3*t:3*(t+1)]     = np.concatenate((A1, A2), axis=1)
 
 
+        pathh3 = path/Path(str(t) + 'Appr_RhoU0Complex'  + str(j) + '.npy')
+        pathh4 = path/Path(str(t) + 'Appr_RhoU1Complex'  + str(j) + '.npy')
+        B1     = np.load(pathh3, allow_pickle=True).astype('float32')
+        B2     = np.load(pathh4, allow_pickle=True).astype('float32')
+        B[:,:,3*t:3*(t+1)]     = np.concatenate((B1, B2), axis=1)
 
-    C1 = np.load(path2 / ('Fake_sp_Complex_H' + str(0)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    C2 = np.load(path2 / ('Fake_sp_Complex_H' + str(1)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    C3 = np.load(path2 / ('Fake_sp_Complex_H' + str(2)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    C = np.concatenate((np.concatenate((C1, C2), axis=2), C3), axis=2)
-
-
-    D1 = np.load(path2 / ('Fake_sp_Complex_V' + str(0)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    D2 = np.load(path2 / ('Fake_sp_Complex_V' + str(1)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    D3 = np.load(path2 / ('Fake_sp_Complex_V' + str(2)+'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    D = np.concatenate((np.concatenate((D1, D2), axis=2), D3), axis=2)
+        pathh1.unlink() ; pathh2.unlink() ; pathh3.unlink() ; pathh4.unlink()
 
 
-    np.save(path2 / ('Fake_splash_Complex' + str(j) + '.npy'),  np.concatenate(  (C, D) , axis=1)     )
+    np.save(path / ('Appr_Rhou_Real' + str(j) + '.npy'), A )
+    np.save(path / ('Appr_Rhou_Complex' + str(j) + '.npy'), B)
