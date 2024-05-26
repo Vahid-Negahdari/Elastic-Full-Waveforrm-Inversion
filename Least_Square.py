@@ -38,4 +38,4 @@ for i in range(BIGG_BATCH):
     Appr_Rho[i] = 1-tf.linalg.lstsq(C,Y,l2_regularizer=0.02).numpy()[:,0]
 
 
-print( np.mean( np.sqrt( np.sum(np.square(Appr_Rho-Rho[0:10]),axis=1)/  np.sum(np.square(Rho[0:10])),axis=1  ) ))
+print( np.mean( np.sqrt( np.sum(np.square(Appr_Rho-Rho[0:10]),axis=1)/  np.sum(np.square(Rho[0:10]),axis=1)  ) ))
