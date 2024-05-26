@@ -8,7 +8,7 @@ from pathlib import Path
 # Define Hyperparameter
 #########################################################
 
-train_epochs   = 2
+train_epochs   = 10
 batch_size     = 25
 num_BIGG_BATCH = 27
 BIGG_BATCH     = 1000
@@ -125,12 +125,13 @@ for p in range(4):
                       batch_uu  = Disp[s * batch_size  : (s + 1) * batch_size ]
                       Loss      = train_step(batch_u,batch_uu)
                       avg_Loss  +=  Loss / (num_batch*num_BIGG_BATCH)
-                   print("--- On epoch {} ---".format(epoch)) ; tf.print(" Loss:", avg_Loss) ; print("\n")
                 else:
                     preds = model(Surface).numpy()
                     preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
                     np.save(path2 / ('Appr_Disp'+ str(a) + name1 + str(j) + '.npy'), preds)
-
+          print("--- On epoch {} ---".format(epoch));
+          tf.print(" Loss:", avg_Loss);
+          print("\n")
           if (epoch % 2 == 0):
              Test_Score(epoch,Disp_Test[name1][:,a*n**2:(a+1)*n**2,:])
 
