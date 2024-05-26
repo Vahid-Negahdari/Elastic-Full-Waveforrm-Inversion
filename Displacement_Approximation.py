@@ -146,14 +146,14 @@ del Surface
 del Disp
 
 for j in range(num_BIGG_BATCH + 1 ):
-    pathh1 = path2/path('Appr_Disp0Real' + str(j) + '.npy')
-    pathh2 = path2/path('Appr_Disp1Real' + str(j) + '.npy')
+    pathh1 = path2/Path('Appr_Disp0Real' + str(j) + '.npy')
+    pathh2 = path2/Path('Appr_Disp1Real' + str(j) + '.npy')
     A = np.load(pathh1, allow_pickle=True).astype('float32')
     B = np.load(pathh2, allow_pickle=True).astype('float32')
     np.save(path2 / ('Appr_Disp_Real' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
 
-    pathh3 = path2/path('Appr_Disp0Complex' + str(j) + '.npy')
-    pathh4 = path2/path('Appr_Disp1Complex' + str(j) + '.npy')
+    pathh3 = path2/Path('Appr_Disp0Complex' + str(j) + '.npy')
+    pathh4 = path2/Path('Appr_Disp1Complex' + str(j) + '.npy')
     A = np.load(pathh3, allow_pickle=True).astype('float32')
     B = np.load(pathh4, allow_pickle=True).astype('float32')
     np.save(path2 / ('Appr_Disp_Complex' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
