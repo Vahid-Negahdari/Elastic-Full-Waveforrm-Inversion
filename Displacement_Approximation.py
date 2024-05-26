@@ -23,7 +23,7 @@ semi           = int(np.ceil(4*n/16)*256)
 # Import Data
 #########################################################
 path  = Path('/home/cvl/Pycharm/pythonProject/Github')
-path2 = Path('/home/cvl/Pycharm/Disp')
+path2 = Path('/home/cvl/Pycharm/pythonProject/Github')
 
 Surface_test      = np.load(path / ('surface27.npy'), allow_pickle=True)
 Surface_test      = np.concatenate((np.real(Surface_test), np.imag(Surface_test)), axis=1)
@@ -129,10 +129,10 @@ for p in range(4):
                     preds = model(Surface).numpy()
                     preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
                     np.save(path2 / ('Appr_Disp'+ str(a) + name1 + str(j) + '.npy'), preds)
-          print("--- On epoch {} ---".format(epoch));
-          tf.print(" Loss:", avg_Loss);
-          print("\n")
-          if (epoch % 2 == 0):
+                    avg_Loss = loss_function(preds , Disp)
+
+          print("--- On epoch {} ---".format(epoch)) ; tf.print(" Loss:", avg_Loss) ; print("\n")
+          if (epoch % 3 == 0):
              Test_Score(epoch,Disp_Test[name1][:,a*n**2:(a+1)*n**2,:])
 
     preds =  model(Surface_test).numpy()
