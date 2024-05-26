@@ -129,7 +129,7 @@ for p in range(4):
                     preds = model(Surface).numpy()
                     avg_Loss = loss_function(preds, Disp)
                     preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
-                    np.save(path2 / ('Appr_Disp'+ str(a) + name1 + str(j) + '.npy'), preds)
+                    np.save(path2 / ('Appr_Disp'+ str(a) + name1 + str(j) + '.npy'),preds)
 
 
           print("--- On epoch {} ---".format(epoch)) ; tf.print(" Loss:", avg_Loss) ; print("\n")
