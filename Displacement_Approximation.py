@@ -8,7 +8,7 @@ from pathlib import Path
 # Define Hyperparameter
 #########################################################
 
-train_epochs   = 10
+train_epochs   = 2
 batch_size     = 25
 num_BIGG_BATCH = 27
 BIGG_BATCH     = 1000
