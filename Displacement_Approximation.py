@@ -8,7 +8,7 @@ from pathlib import Path
 # Define Hyperparameter
 #########################################################
 
-train_epochs   = 23
+train_epochs   = 2
 batch_size     = 25
 num_BIGG_BATCH = 27
 BIGG_BATCH     = 1000
@@ -18,9 +18,17 @@ n              = 51
 k              = 9
 semi           = int(np.ceil(4*n/16)*256)
 
-path  = Path('/home/cvl/Pycharm/pythonProject/Final/L10K40')
-path2 = Path('/home/cvl/Pycharm/pythonProject/Final/L10K40/L2')
 
+#########################################################
+# Import Data
+#########################################################
+path  = Path('/home/cvl/Pycharm/pythonProject/Github')
+path2 = Path('/home/cvl/Pycharm/Disp')
+
+Surface_test      = np.load(path / ('surface27.npy'), allow_pickle=True)
+Surface_test      = np.concatenate((np.real(Surface_test), np.imag(Surface_test)), axis=1)
+Disp_Test         = {'Real':np.load(path / ('Disp_Real27.npy'), allow_pickle=True) ,
+                     'Complex':np.load(path / ('Disp_Complex27.npy'), allow_pickle=True) }
 #########################################################
 # Define Some Functions
 #########################################################
@@ -68,25 +76,29 @@ def train_step(u, uu,lr):
         current_loss = loss_function(preds, uu)
         grads = tape.gradient(current_loss, weights )
         optimizer.apply_gradients(zip(grads, weights ))
-        return current_loss ,preds.numpy()
+        return current_loss
 
+
+def Test_Score(epoch,Disp):
+    preds = model(Surface_test)
+    loss = loss_function(preds, Disp)
+    print("--- On epoch Test {} ---".format(epoch))
+    tf.print(" Loss:",loss)
+    print("\n")
 
 #######################################################
 # Training Process
 #######################################################
-
 for p in range(4):
     print(p)
     if   p==0:
-        name1 = 'Real'     ; name2 = 'H'
+        name1 = 'Real'    ; a = 0
     elif  p==1:
-        name1 = 'Real'     ; name2 = 'V'
+        name1 = 'Real'    ; a = 1
     elif  p==2:
-        name1 = 'Complex'  ; name2 = 'H'
+        name1 = 'Complex' ; a = 0
     elif  p==3:
-        name1 = 'Complex'  ; name2 = 'V'
-
-
+        name1 = 'Complex' ; a = 1
 
 
     weights = []
@@ -97,57 +109,55 @@ for p in range(4):
     weights = weights + [get_tfVariable([semi, k * 1 * n ** 2], 'W5')]
     weights = weights + [get_tfVariable([k * 1 * n ** 2], 'W6')]
 
-    lr = 0.01
-    ########################################################
+    lr      = 0.01
+    ################################################################
     ################################################################
     for epoch in range(train_epochs):
           avg_Loss = 0
           if np.mod(epoch,2)==0 :
              lr=lr/2
           for j in range(num_BIGG_BATCH):
-                if epoch == train_epochs - 1:
-                         Fake_sc = np.zeros([BIGG_BATCH, n ** 2, k], dtype=np.float32)
                 Surface = np.load(path / ('surface' + str(j) + '.npy'), allow_pickle=True)
                 Surface = np.concatenate((np.real(Surface), np.imag(Surface)), axis=1)
-
-                if p==0 or p==2 :
-                     Scatt   = np.load(path / ('scatt_'+ name1 + str(j) + '.npy'), allow_pickle=True)[:,0:n**2,:]
-                else :
-                     Scatt   = np.load(path / ('scatt_'+ name1 + str(j) + '.npy'), allow_pickle=True)[:,n**2:2*(n**2),:]
-
-                Scatt   = np.reshape  (Scatt, [BIGG_BATCH , k*n**2])
-                for s in range(num_batch):
-                      batch_u    = np.real(Surface[s * batch_size: (s + 1) * batch_size])
-                      batch_uu   = Scatt  [s * batch_size  : (s + 1) * batch_size ]
-
-                      Loss ,preds      = train_step(batch_u, batch_uu,lr)
-                      avg_Loss +=  Loss / (num_batch*num_BIGG_BATCH)
-                      if epoch == train_epochs -1 :
-                         Fake_sc[s * batch_size:(s + 1) * batch_size  ] = np.reshape(preds,[batch_size,n**2,k])
-
+                Disp    = np.load(path / ('Disp_'+ name1 + str(j) + '.npy'), allow_pickle=True)[:,a*n**2:(a+1)*n**2,:]
+                Disp    = np.reshape(Disp, [BIGG_BATCH , k*n**2])
+                if epoch < train_epochs - 1:
+                   for s in range(num_batch):
+                      batch_u    = Surface[s * batch_size: (s + 1) * batch_size]
+                      batch_uu   = Disp[s * batch_size  : (s + 1) * batch_size ]
+                      Loss,preds = train_step(batch_u,batch_uu,lr)
+                      avg_Loss  +=  Loss / (num_batch*num_BIGG_BATCH)
                 if epoch == train_epochs - 1:
-                   np.save(path2 / ('Fake_sc_'+ name1 +'_' +name2 + '_'  + str(j) + '.npy'), Fake_sc)
+                    preds = model(Surface).numpy()
+                    preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
+                    np.save(path2 / ('Appr_Disp'+ str(a) + name1 + str(j) + '.npy'), preds)
           print("--- On epoch {} ---".format(epoch))
           tf.print(" Loss:", avg_Loss)
           print("\n")
+          if (epoch % 2 == 0):
+             Test_Score(epoch,Disp_Test[name1][:,a*n**2:(a+1)*n**2,:])
 
-    Surface = np.load(path / ('surface' + str(27) + '.npy'), allow_pickle=True)
-    Surface = np.concatenate((np.real(Surface), np.imag(Surface)), axis=1)
-    preds   =  model(Surface)
-    preds   = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
-    np.save(path2 / ('Fake_sc_' + name1 + '_' + name2 + '_' + str(27) + '.npy'), preds)
-
-
+    preds =  model(Surface_test).numpy()
+    preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
+    np.save(path2 / ('Appr_Disp'+ str(a) + name1 + str(27) + '.npy'), preds)
 
 
-del Fake_sc
+
+
 del Surface
-del Scatt
+del Disp
 
 for j in range(num_BIGG_BATCH + 1 ):
-    A = np.load(path2 / ('Fake_sc_Real_H' + '_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    B = np.load(path2 / ('Fake_sc_Real_V' + '_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    np.save(path2 / ('Fake_Real' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
-    C = np.load(path2 / ('Fake_sc_Complex_H' +'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    D = np.load(path2 / ('Fake_sc_Complex_V' +'_' + str(j) + '.npy'), allow_pickle=True).astype('float32')
-    np.save(path2 / ('Fake_Complex' + str(j) + '.npy'),  np.concatenate(  (C, D) , axis=1)     )
+    pathh1 = path2/path('Appr_Disp0Real' + str(j) + '.npy')
+    pathh2 = path2/path('Appr_Disp1Real' + str(j) + '.npy')
+    A = np.load(pathh1, allow_pickle=True).astype('float32')
+    B = np.load(pathh2, allow_pickle=True).astype('float32')
+    np.save(path2 / ('Appr_Disp_Real' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
+
+    pathh3 = path2/path('Appr_Disp0Complex' + str(j) + '.npy')
+    pathh4 = path2/path('Appr_Disp1Complex' + str(j) + '.npy')
+    A = np.load(pathh3, allow_pickle=True).astype('float32')
+    B = np.load(pathh4, allow_pickle=True).astype('float32')
+    np.save(path2 / ('Appr_Disp_Complex' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
+
+    pathh1.unlink() ; pathh2.unlink() ; pathh3.unlink() ; pathh4.unlink()

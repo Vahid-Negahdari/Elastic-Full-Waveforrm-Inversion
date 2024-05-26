@@ -4,9 +4,6 @@ from tensorflow import keras
 import pickle
 from pathlib import Path
 
-
-path = Path('/home/cvl/Pycharm/pythonProject/Github')
-
 #########################################################
 # Define Hyperparameter
 #########################################################
@@ -24,6 +21,8 @@ semi         = int(np.ceil(N/8)*128)
 #########################################################
 # Import Data
 #########################################################
+path = Path('/home/cvl/Pycharm/pythonProject/Github')
+
 Density_train = np.load(path / ('Density_Train.npy'), allow_pickle=True)
 Density_test  = np.load(path / ('Density_Test.npy'), allow_pickle=True)
 
@@ -118,7 +117,7 @@ for epoch in range(train_epochs):
       tf.print(" Loss:", avg_Loss)
       print("\n")
       if (epoch % 3 == 0):
-        Test_Score(epoch)
+         Test_Score(epoch)
 
 
 Fake_Dens = np.zeros([28000,n**2]).astype('float32')
