@@ -69,7 +69,7 @@ def loss_function(y_pred, y_true):
 
 #######################################################
 #######################################################
-def train_step(u, uu):
+def train_step(u,uu):
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
     with tf.GradientTape() as tape:
         preds = model(u)

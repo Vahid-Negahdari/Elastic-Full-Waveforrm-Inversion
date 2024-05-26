@@ -5,7 +5,7 @@ from pathlib import Path
 
 path = Path('/home/cvl/Pycharm/pythonProject/Github')
 
-BIGG_BATCH  = 1000
+BIGG_BATCH  = 500
 n  = 51
 k  = 9
 
@@ -38,4 +38,4 @@ for i in range(BIGG_BATCH):
     Appr_Rho[i] = 1-tf.linalg.lstsq(C,Y,l2_regularizer=0.02).numpy()[:,0]
 
 
-print( np.mean( np.sqrt( np.sum(np.square(Appr_Rho-Rho),axis=1)/  np.sum(np.square(Rho),axis=1)  ) ))
+print( np.mean( np.sqrt( np.sum(np.square(Appr_Rho-Rho[0:500]),axis=1)/  np.sum(np.square(Rho[0:500]),axis=1)  ) ))
