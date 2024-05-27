@@ -1,6 +1,5 @@
 import tensorflow as tf
 import numpy as np
-import pickle
 from pathlib import Path
 
 
@@ -9,7 +8,7 @@ from pathlib import Path
 # Define Hyperparameter
 #########################################################
 
-train_epochs   = 1
+train_epochs   = 19
 batch_size     = 25
 num_BIGG_BATCH = 27
 BIGG_BATCH     = 1000
