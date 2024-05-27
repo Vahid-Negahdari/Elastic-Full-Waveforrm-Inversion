@@ -180,4 +180,4 @@ for j in range(num_BIGG_BATCH+1):
     Appr_Rho[:, :, :, 18:27] = np.reshape((B / D)[:, 0:n ** 2, :],      [BIGG_BATCH, n, n, 9])
     Appr_Rho[:, :, :, 27:36] = np.reshape((B / D)[:, n**2:2*n ** 2, :], [BIGG_BATCH, n, n, 9])
 
-    np.save(path / ('Appr_Rho' + str(j) + '.npy'), Appr_Rho )
+    np.save(path / ('Appr_Rho' + str(j) + '.npy'), 1-Appr_Rho )

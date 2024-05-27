@@ -26,8 +26,7 @@ path = Path('/home/cvl/Pycharm/pythonProject/Final/L10K40/L2_Fake')
 Density_test  = np.load(path / ('Density27.npy'), allow_pickle=True)
 Density_test  = np.reshape(Density_test, [BIGG_BATCH, n, n, 1])
 
-Appr_Rho_test = np.load(path / ('Fake_rho27.npy'), allow_pickle=True)
-Appr_Rho_test = np.reshape(Appr_Rho_test, [BIGG_BATCH, n, n, 36])
+Appr_Rho_test = np.load(path / ('Appr_Rho27.npy'), allow_pickle=True)
 Appr_Rho_test[np.abs(Appr_Rho_test) == inf] = 0
 Appr_Rho_test[np.abs(Appr_Rho_test) > 11] = np.mean(Appr_Rho_test)
 
@@ -134,8 +133,7 @@ for epoch in range(train_epochs):
          Density = np.load(path / ('Density' + str(i)+'.npy'), allow_pickle=True)
          Density = np.reshape(Density,[BIGG_BATCH,n,n,1])
 
-         Appr_Rho = np.load(path / ('Fake_rho' + str(i) + '.npy'), allow_pickle=True)
-         Appr_Rho = np.reshape(Appr_Rho, [BIGG_BATCH, n, n, 36])
+         Appr_Rho = np.load(path / ('Appr_Rho' + str(i) + '.npy'), allow_pickle=True)
          Appr_Rho[np.abs(Appr_Rho) == inf] = 0
          Appr_Rho[np.abs(Appr_Rho) > 11] = np.mean(Appr_Rho)
 
