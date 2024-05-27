@@ -17,7 +17,6 @@ num_BIGG_BATCH  = 1
 num_batch       = int((BIGG_BATCH-1000)/batch_size)
 n=51
 k               = 9
-K               = list(range(0, 9, int(9/k)))
 N1              = 2*k*102
 N2              = n**2
 semi1           = int(np.ceil(N1/8))*128
@@ -30,25 +29,27 @@ lr2             = 0.0000000001
 #########################################################
 # Import Data
 #########################################################
-path = Path('/home/cvl/Pycharm/pythonProject/Final/L10K40/Super/Comprise_Final')
-#path = Path(r'C:\Users\Vahid\PycharmProjects\pythonProject\Fieldd')
-
-Dens      = np.load(path / ('Density_Group0.npy'), allow_pickle=True)
-Dens      = -np.expand_dims(Dens, axis=2).astype('float32')
-Dens_Test = Dens[27000:28000].copy()
-Dens      = Dens[0:27000]
-
-Fake_Dens = np.load(path / ('Nonlinear_Fake_Density_Group.npy'), allow_pickle=True)
-Fake_Dens = -Fake_Dens.astype('float32')
-Fake_Dens_Test = Fake_Dens[27000:28000].copy()
-Fake_Dens = Fake_Dens[0:27000]
+path  = Path('/home/cvl/Pycharm/pythonProject/Github')
 
 
-Data = np.load(path / ('surface_Group0.npy'), allow_pickle=True)[:,:,K]
-Data = np.reshape(Data, [BIGG_BATCH, 102 * k, 1])
-Data = np.concatenate((np.real(Data), np.imag(Data)), axis=1)
-Data_Test = Data[27000:28000].copy()
-Data      = Data[0:27000]
+Density_train = np.load(path / ('Density_Train.npy'), allow_pickle=True)
+Density_test  = np.load(path / ('Density_Test.npy'), allow_pickle=True)
+Density_train = np.expand_dims(Density_train, axis=2).astype('float32')
+Density_test  = np.expand_dims(Density_test, axis=2).astype('float32')
+
+
+Appr_Rho       = np.load(path / ('Linear_to_Nonlinear_Density.npy'), allow_pickle=True)
+Appr_Rho_test  = np.expand_dims(Appr_Rho[27000:28000],axis=2)
+Appr_Rho_train = np.expand_dims(Appr_Rho[0:27000],axis=2)
+
+
+Surface_train = np.load(path / ('Surface_Train.npy'), allow_pickle=True)
+Surface_test  = np.load(path / ('Surface_Test.npy'), allow_pickle=True)
+Surface_train = np.reshape(Surface_train, [BIGG_BATCH, 2*n * k, 1])
+Surface_train = np.concatenate((np.real(Surface_train), np.imag(Surface_train)), axis=1)
+Surface_test  = np.reshape(Surface_test, [BIGG_BATCH, 2*n * k, 1])
+Surface_test  = np.concatenate((np.real(Surface_test), np.imag(Surface_test)), axis=1)
+
 
 #########################################################
 # Define Some Functions
@@ -68,7 +69,6 @@ def deconv(input, w, strides, output):
 def fullyConnected_layer(input,w,b):
   y = tf.matmul(input,w) + b
   return y
-
 
 #########################################################
 # Define Weights
@@ -176,167 +176,74 @@ def train_step(x_input, lr,  y_input = None):
         Sample = Latent_Sample(L)
         if y_input is not None:
             preds  = Decode(Sample, cond=2)
-            [Loss1, Loss2, Loss,Loss3] = loss_function(L, preds , y_input ,cond=2)
+            [Loss1, Loss2, Loss] = loss_function(L, preds , y_input ,cond=2)
         else :
             preds  = Decode(Sample, cond=1)
-            [Loss1, Loss2, Loss , Loss3] = loss_function(L, preds, x_input, cond=1)
+            [Loss1, Loss2, Loss] = loss_function(L, preds, x_input, cond=1)
 
         grads = tape.gradient(Loss, weights)
         optimizer.apply_gradients(zip(grads, weights))
-        return [Loss1, Loss2, Loss, Loss3]
+        return [Loss1, Loss2, Loss]
 
 
-def Test_Score(x_input, y_input = None):
+def Test_Score(epoch, x_input, y_input = None):
         L      = Encode(x_input)
         Sample = Latent_Sample(L)
         if y_input is not None:
             preds = Decode(Sample, cond=2)
-            [Loss1, Loss2, Loss,Loss3] = loss_function(L, preds , y_input ,cond=2)
+            [Loss1, Loss2, Loss] = loss_function(L, preds , y_input ,cond=2)
         else :
             preds = Decode(Sample, cond=1)
-            [Loss1, Loss2, Loss , Loss3] = loss_function(L, preds, x_input, cond=1)
+            [Loss1, Loss2, Loss ] = loss_function(L, preds, x_input, cond=1)
 
-        print("--- On Test epoch TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT ")
-        tf.print(" ---Loss:---", Loss, " ---Loss1:---", Loss1, " ---Loss2:---", Loss2, " ---Loss3:---", Loss3)
-        return [Loss1, Loss2, Loss, Loss3]
+        print("--- On epoch Test {} ---".format(epoch))
+        tf.print(" ---Loss1:---", Loss1, " ---Loss2:---", Loss2, " ---Loss:---", Loss)
 
-########################################################################################################################
-########################################################################################################################
-
+#######################################################
+# Training Process
+#######################################################
 
 for EPOCH in range(train_epochs):
 
-    print(EPOCH)
     if EPOCH >= 1:
         lr1 = 4 * lr1
         train_epochs1 = 8
- #       lr2 = 5 * lr2
 
-    print('************************************************************************************************************')
+    print('***********************************************************************')
+    print("--- On  Main EPOCH {} ---  ".format(EPOCH))
+    print('***********************************************************************')
     for epoch in range(train_epochs1):
-        avg_Loss1 = 0 ; avg_Loss2 = 0 ; avg_Loss = 0 ; avg_Loss3 = 0
+        avg_Loss1 = 0 ; avg_Loss2 = 0 ; avg_Loss = 0
         if np.mod(epoch, 2) == 0:
             lr1 = lr1 / 2
-
-
         for j in range(num_batch):
-            batch_x = Dens[j * batch_size: (j + 1) * batch_size, :, :]
-            [Loss1, Loss2, Loss,Loss3] = train_step(batch_x, lr1)
+            batch_x = Density_train[j * batch_size: (j + 1) * batch_size, :, :]
+            [Loss1, Loss2, Loss] = train_step(batch_x, lr1)
             avg_Loss  += (Loss  / (num_batch))
             avg_Loss1 += (Loss1 / (num_batch))
             avg_Loss2 += (Loss2 / (num_batch))
-            avg_Loss3 += (Loss3 / (num_batch))
-
-        print("--- On DENSITY epoch $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ {} ---".format(epoch))
-        tf.print(" ---Loss:---", avg_Loss, " ---Loss1:---", avg_Loss1, " ---Loss2:---", avg_Loss2, " ---Loss3:---", avg_Loss3)
-        print("\n")
+        print("--- On DENSITY epoch {} --- ######################################### ".format(epoch))
+        tf.print(" ---Loss1:---", avg_Loss1, " ---Loss2:---", avg_Loss2, " ---Loss:---", avg_Loss) ; print("\n")
         if (epoch  == train_epochs1-1):
-            Test_Score(Dens_Test, lr1)
+            Test_Score(epoch,Density_test)
 
-
-########################################################################################################################
-########################################################################################################################
-########################################################################################################################
 
 
     lr2 = 1*lr1
     for epoch in range(train_epochs2):
-        avg_Loss1 = 0 ; avg_Loss2 = 0 ; avg_Loss = 0 ; avg_Loss3 = 0
+        avg_Loss1 = 0 ; avg_Loss2 = 0 ; avg_Loss = 0
         if np.mod(epoch, 2) == 0:
             lr2 = lr2 / 2
-
-
         for j in range(num_batch):
-             batch_x = Fake_Dens[j * batch_size: (j + 1) * batch_size, :, :]
-             batch_y = Data[ j*batch_size : (j+1)*batch_size , : , : ]
-             [Loss1,Loss2,Loss,Loss3]    = train_step(batch_x,lr2, y_input=batch_y)
+             batch_x = Appr_Rho_train[j * batch_size: (j + 1) * batch_size, :, :]
+             batch_y = Surface_train[ j*batch_size : (j+1)*batch_size , : , : ]
+             [Loss1,Loss2,Loss]    = train_step(batch_x,lr2, y_input=batch_y)
              avg_Loss  +=  (Loss  / (num_batch))
              avg_Loss1 +=  (Loss1 / (num_batch))
              avg_Loss2 +=  (Loss2 / (num_batch))
-             avg_Loss3 +=  (Loss3 / (num_batch))
 
-        print("--- On SURFACE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ epoch {} ---".format(epoch))
-        tf.print(" ---Loss:---", avg_Loss , " ---Loss1:---", avg_Loss1 , " ---Loss2:---", avg_Loss2, " ---Loss3:---", avg_Loss3 )
-        print("\n")
+        print("--- On SURFACE epoch {} --- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ".format(epoch))
+        tf.print(" ---Loss1:---", avg_Loss1 , " ---Loss2:---", avg_Loss2, " ---Loss:---", avg_Loss ) ; print("\n")
         if (epoch  == train_epochs2-1):
-            Test_Score(Fake_Dens_Test,lr2, y_input=Data_Test)
+            Test_Score(epoch,Appr_Rho_test, y_input=Surface_test)
 
-#SAVE_WEIGHTS()
-########################################################################################################################
-########################################################################################################################
-########################################################################################################################
-# Direct  = -np.load(path / ('Direct_Real_Density_Group.npy'), allow_pickle=True).reshape([BIGG_BATCH,n,n])[27000:28000]
-# Direct1 = -np.load(path / ('Direct_Fake_Density_Group1.npy'), allow_pickle=True).reshape([BIGG_BATCH,n,n])[27000:28000]
-# Direct2 = -np.load(path / ('Direct_Fake_Density_Group2.npy'), allow_pickle=True).reshape([BIGG_BATCH,n,n])[27000:28000]
-# Direct3 = -np.load(path / ('Direct_Fake_Density_Group3.npy'), allow_pickle=True).reshape([BIGG_BATCH,n,n])[27000:28000]
-# ########################################################################################################################
-# ########################################################################################################################
-# ########################################################################################################################
-#
-# L = encode(Fake_Dens[27000:28000])
-# sample = latent_sample(L)
-# SAMPLE =  Resample(L,0,1)
-# preds = decode(sample,1)
-# PREDS = decode(SAMPLE,1)
-# #PREDS =  preds + (np.random.normal(0,1,[1000,N2,1])*sigma2).astype('float32')
-# preds = np.reshape(preds,[1000,n,n])
-# PREDS = np.reshape(PREDS,[1000,n,n])
-# DENS  = np.reshape(Dens[27000:28000] , [1000,n,n])
-# FAKE  = np.reshape(Fake_Dens[27000:28000] , [1000,n,n])
-#
-# def plott():
-#     for j in range(100):
-#         Z = [DENS[j] , FAKE[j],preds[j], PREDS[j],Direct[j],Direct1[j],Direct2[j],Direct3[j]]
-#         m1 = np.min(Z) ; m2 = np.max(Z)
-#
-#         fig = plt.figure(figsize=(18.75, 6))
-#         grid = ImageGrid(fig, 111,
-#                          nrows_ncols=(2, 4), axes_pad=[0.15, 0.15], share_all=True, cbar_location="right", direction='row',
-#                          cbar_mode="single", cbar_size="7%", cbar_pad=0.2, )
-#         for i,ax in enumerate(grid):
-#             im = ax.imshow(Z[i], vmin=m1, vmax=m2)
-#             ax.cax.colorbar(im)
-#             if i<4 :
-#                 ax.set_title('First Method'+str(i), fontstyle='italic')
-#          #   ax.set_title('First Method', fontstyle='italic')
-#             ax.get_xaxis().set_visible(False)
-#             ax.get_yaxis().set_visible(False)
-#         plt.savefig(str(j) + '.png')
-#         plt.show()
-#         plt.close()
-#
-# plott()
-#
-#
-#
-#
-#
-# sample=np.random.normal(0,1,[100,latent_space]).astype('float32')
-# #sample = sample +  np.random.normal(0,0.4,[100,latent_space]).astype('float32')
-# Gen = decode(sample,1)
-# Gen = np.reshape(Gen,[100,n,n])
-#
-# def plot():
-#
-#   for kk in range(100):
-#         T = Gen[kk]
-#         S = Gen[kk]
-#
-#         DATA1 = np.reshape(T, [n, n])
-#         DATA2 = np.reshape(S, [n, n])
-#         Z = [DATA1, DATA2]
-#         fig, axes = plt.subplots(nrows=2, ncols=1)
-#         i = 0
-#         for ax in axes.flat:
-#             im = ax.imshow(Z[i], extent=[0, 1, 0, 1], vmin=np.min([np.min(Z[0]), np.min(Z[1])]),
-#                            vmax=np.max([np.max(Z[0]), np.max(Z[1])]));
-#             i = i + 1
-#         fig.subplots_adjust(right=0.8)
-#         cbar_ax = fig.add_axes([0.85, 0.15, 0.05, 0.7])
-#         fig.colorbar(im, cax=cbar_ax)
-#         plt.savefig(str(kk) + '.png')
-#         plt.show()
-#         plt.close()
-#
-#
-# #plot()

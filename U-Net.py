@@ -151,6 +151,8 @@ for epoch in range(train_epochs):
     if (epoch % 3 == 0):
        Test_Score(epoch)
 
+preds                   = Model(Appr_Rho_test).numpy()
+Appr_Final[27000:28000] = np.reshape(preds, [BIGG_BATCH, n ** 2])
 
-np.save(path / ('Linear_to_Nonlinear.npy'), Appr_Final)
+np.save(path / ('Linear_to_Nonlinear_Density.npy'), Appr_Final)
 
