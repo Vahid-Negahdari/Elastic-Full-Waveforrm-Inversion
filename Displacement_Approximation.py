@@ -124,9 +124,10 @@ for p in range(4):
                       Loss      = train_step(batch_u,batch_uu,lr)
                       avg_Loss  +=  Loss / (num_batch*num_BIGG_BATCH)
                 else:
-                    preds = Model(Surface).numpy()
-                    avg_Loss = loss_function(preds, Disp)
-                    preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
+                    preds     = Model(Surface).numpy()
+                    Loss      = loss_function(preds, Disp)
+                    avg_Loss += Loss / (num_BIGG_BATCH)
+                    preds     = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
                     np.save(path / ('Appr_Disp'+ str(a) + name1 + str(j) + '.npy'),preds)
 
 

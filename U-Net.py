@@ -144,8 +144,9 @@ for epoch in range(train_epochs):
                  Loss      = train_step(batch_x,batch_y,lr)
                  avg_Loss +=  (Loss / (num_batch*num_BIGG_BATCH))
          else :
-             preds = Model(Appr_Rho).numpy()
-             avg_Loss = loss_function(preds, Density)
+             preds     = Model(Appr_Rho).numpy()
+             Loss      = loss_function(preds, Density)
+             avg_Loss += (Loss / (num_BIGG_BATCH))
              Appr_Final[i*BIGG_BATCH:(i+1)*BIGG_BATCH] = np.reshape(preds, [BIGG_BATCH, n ** 2])
     print("--- On epoch {} ---".format(epoch)) ; tf.print(" Loss:", avg_Loss) ; print("\n")
     if (epoch % 3 == 0):

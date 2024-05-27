@@ -128,9 +128,10 @@ for p in range(4):
                               Loss     = train_step(batch_u, batch_uu,lr)
                               avg_Loss += Loss / (num_batch*num_BIGG_BATCH)
                     else:
-                        preds = Model(Disp_appr).numpy()
-                        avg_Loss = loss_function(preds, RhoU)
-                        preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
+                        preds     = Model(Disp_appr).numpy()
+                        Loss      = loss_function(preds, RhoU)
+                        avg_Loss += Loss / (num_BIGG_BATCH)
+                        preds     = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
                         np.save(path / (str(t) + 'Appr_RhoU' + str(a) + name1 + str(j) + '.npy'), preds)
 
               print("--- On epoch {} ---".format(epoch)) ; tf.print(" Loss:", avg_Loss) ; print("\n")
