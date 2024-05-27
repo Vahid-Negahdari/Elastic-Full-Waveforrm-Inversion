@@ -116,7 +116,7 @@ def train_step(x_input,y_input,lr):
 
 
 def Test_Score(epoch):
-    preds = Model(Fake)
+    preds = Model(Appr_Rho_test)
     loss = loss_function(preds, Density_test)
     print("--- On epoch Test {} ---".format(epoch)) ; tf.print(" Loss:",loss) ; print("\n")
 
