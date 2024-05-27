@@ -52,7 +52,7 @@ def get_tfVariable(shape, name):
 # Define Model
 ########################################################
 
-def model( u ):
+def Model( u ):
     C = conv(u, weights[0],2)
     C = conv(C, weights[1],2)
     C = conv(C, weights[2],2)
@@ -74,14 +74,14 @@ def loss_function(y_pred, y_true):
 def train_step(u,uu,lr):
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
     with tf.GradientTape() as tape:
-        preds = model(u)
+        preds = Model(u)
         current_loss = loss_function(preds, uu)
         grads = tape.gradient(current_loss, weights )
         optimizer.apply_gradients(zip(grads, weights ))
         return current_loss
 
 def Test_Score(epoch,Disp,rhou):
-    preds = model(Disp)
+    preds = Model(Disp)
     loss = loss_function(preds, np.reshape(rhou,[BIGG_BATCH,k*n**2]))
     print("--- On epoch Test {} ---".format(epoch)) ; tf.print(" Loss:",loss) ; print("\n")
 
@@ -131,7 +131,7 @@ for p in range(4):
                               Loss     = train_step(batch_u, batch_uu,lr)
                               avg_Loss += Loss / (num_batch*num_BIGG_BATCH)
                     else:
-                        preds = model(Disp_appr).numpy()
+                        preds = Model(Disp_appr).numpy()
                         avg_Loss = loss_function(preds, RhoU)
                         preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
                         np.save(path / (str(t) + 'Appr_RhoU' + str(a) + name1 + str(j) + '.npy'), preds)
@@ -141,7 +141,7 @@ for p in range(4):
                  Test_Score(epoch,Disp_appr_test[name1][:,:,K], RhoU_test[name1][:, a * n ** 2:(a + 1) * n ** 2, K])
 
 
-        preds = model(Disp_appr_test[name1][:,:,K]).numpy()
+        preds = Model(Disp_appr_test[name1][:,:,K]).numpy()
         preds = np.reshape(preds, [BIGG_BATCH, n ** 2, k])
         np.save(path / (str(t) +'Appr_RhoU' + str(a) + name1 + str(27) + '.npy'), preds)
 

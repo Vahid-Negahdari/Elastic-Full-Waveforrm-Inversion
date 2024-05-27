@@ -64,7 +64,7 @@ weights = weights + [get_tfVariable([n**2],   'W6')]
 ########################################################
 # Define Model
 ########################################################
-def model(u):
+def Model(u):
     C = conv(u, weights[0],2)
     C = conv(C, weights[1],2)
     C = conv(C, weights[2],2)
@@ -84,7 +84,7 @@ def loss_function(y_pred, y_true):
 def train_step(u, uu,lr):
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
     with tf.GradientTape() as tape:
-        preds = model(u)
+        preds = Model(u)
         current_loss = loss_function(preds, uu)
         grads = tape.gradient(current_loss, weights )
         optimizer.apply_gradients(zip(grads, weights ))
@@ -92,7 +92,7 @@ def train_step(u, uu,lr):
 
 
 def Test_Score(epoch):
-    preds = model(Surface_test)
+    preds = Model(Surface_test)
     loss = loss_function(preds, Density_test)
     print("--- On epoch Test {} ---".format(epoch))
     tf.print(" Loss:",loss)
@@ -125,7 +125,7 @@ Fake_Dens = np.zeros([28000,n**2]).astype('float32')
 Density = np.concatenate((Density_train,Density_test),axis=0)
 Surface = np.concatenate((Surface_train,Surface_test),axis=0)
 for i in range(28):
-    preds = model(Surface[i*1000: (i+1)*1000]).numpy()
+    preds = Model(Surface[i*1000: (i+1)*1000]).numpy()
     Fake_Dens[i*1000:(i+1)*1000] = np.reshape(preds, [1000, n ** 2])
 
 
