@@ -35,9 +35,9 @@ Appr_Rho_test[np.abs(Appr_Rho_test) > 11] = np.mean(Appr_Rho_test)
 # Define Some Functions
 #########################################################
 def conv(input, w, strides):
-        y = tf.nn.conv2d(input=input, filters=w, strides=strides, padding='SAME')
-        y = tf.nn.leaky_relu(y)
-        return y
+    y = tf.nn.conv2d(input=input, filters=w, strides=strides, padding='SAME')
+    y = tf.nn.leaky_relu(y)
+    return y
 
 def deconv(input, w, strides, output):
     y = tf.nn.conv2d_transpose(input=input, filters=w, strides=strides, padding='SAME', output_shape=output)

@@ -9,7 +9,7 @@ from pathlib import Path
 # Define Hyperparameter
 #########################################################
 
-train_epochs   = 19
+train_epochs   = 1
 batch_size     = 25
 num_BIGG_BATCH = 27
 BIGG_BATCH     = 1000
@@ -147,13 +147,14 @@ for p in range(4):
 
 
 
-#######################################################
-# Concatenate Rhou and derive Rho (By divide RhoU on displacement)
-#######################################################
+####################################################################
+# Concatenate Rhou and derive Rho (divide RhoU by displacement)
+####################################################################
 
 for j in range(num_BIGG_BATCH+1):
     A = np.zeros([1000,2*(n**2),9],'float32')
     B = np.zeros([1000,2*(n**2),9],'float32')
+    Appr_Rho = np.zeros([BIGG_BATCH, n ,n, 36], dtype=np.float32)
     for t in range(3):
 
         pathh1 = path/Path(str(t) + 'Appr_RhoU0Real'  + str(j) + '.npy')
@@ -171,6 +172,12 @@ for j in range(num_BIGG_BATCH+1):
 
         pathh1.unlink() ; pathh2.unlink() ; pathh3.unlink() ; pathh4.unlink()
 
+    C = np.load(path / ('Appr_Disp_Real'+ str(j) + '.npy'), allow_pickle=True).astype('float32')
+    D = np.load(path / ('Appr_Disp_Complex' + str(j) + '.npy'), allow_pickle=True).astype('float32')
 
-    np.save(path / ('Appr_Rhou_Real' + str(j) + '.npy'), A )
-    np.save(path / ('Appr_Rhou_Complex' + str(j) + '.npy'), B)
+    Appr_Rho[:, :, :, 0:9]   = np.reshape((A / C)[:, 0:n ** 2, :],      [BIGG_BATCH, n, n, 9])
+    Appr_Rho[:, :, :, 9:18]  = np.reshape((A / C)[:, n**2:2*n ** 2, :], [BIGG_BATCH, n, n, 9])
+    Appr_Rho[:, :, :, 18:27] = np.reshape((B / D)[:, 0:n ** 2, :],      [BIGG_BATCH, n, n, 9])
+    Appr_Rho[:, :, :, 27:36] = np.reshape((B / D)[:, n**2:2*n ** 2, :], [BIGG_BATCH, n, n, 9])
+
+    np.save(path / ('Appr_Rho' + str(j) + '.npy'), Appr_Rho )
