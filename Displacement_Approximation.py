@@ -114,7 +114,7 @@ for p in range(4):
           if np.mod(epoch,2)==0 :
              lr=lr/2
           for j in range(num_BIGG_BATCH):
-                Surface = np.load(path / ('surface' + str(j) + '.npy'), allow_pickle=True)
+                Surface = np.load(path / ('Surface' + str(j) + '.npy'), allow_pickle=True)
                 Surface = np.concatenate((np.real(Surface), np.imag(Surface)), axis=1)
                 Disp    = np.load(path / ('Disp_'+ name1 + str(j) + '.npy'), allow_pickle=True)[:,a*n**2:(a+1)*n**2,:]
                 Disp    = np.reshape(Disp, [BIGG_BATCH , k*n**2])
