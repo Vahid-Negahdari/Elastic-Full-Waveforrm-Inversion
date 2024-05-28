@@ -153,9 +153,9 @@ for epoch in range(train_epochs):
 
 preds                   = Model(Appr_Rho_test).numpy()
 Appr_Final[27000:28000] = np.reshape(preds, [BIGG_BATCH, n ** 2])
-Density_test  = 1-np.load(path / ('Density27.npy'), allow_pickle=True)
+Density_test  = np.load(path / ('Density27.npy'), allow_pickle=True)
 
-d1 = np.sqrt(np.sum(np.square(Appr_Final[27000:28000]-Density_test),axis=1)) / np.sqrt(np.sum(np.square(1-Density_test),axis=1))
+d1 = np.sqrt(np.sum(np.square(Appr_Final[27000:28000]-Density_test),axis=1)) / np.sqrt(np.sum(np.square(Density_test),axis=1))
 print(np.mean(d1))
 
 np.save(path / ('Linear_to_Nonlinear_Density.npy'), Appr_Final)
