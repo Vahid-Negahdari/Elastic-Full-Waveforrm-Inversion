@@ -23,12 +23,12 @@ lr              = 0.003
 
 path  = Path('/home/cvl/Pycharm/pythonProject/Github')
 
-Density_test  = 1-np.load(path / ('Density27.npy'), allow_pickle=True)
+Density_test  = np.load(path / ('Density27.npy'), allow_pickle=True)
 Density_test  = np.reshape(Density_test, [BIGG_BATCH, n, n, 1])
 
-Appr_Rho_test = 1-np.load(path / ('Appr_Rho27.npy'), allow_pickle=True)
+Appr_Rho_test = np.load(path / ('Appr_Rho27.npy'), allow_pickle=True)
 Appr_Rho_test[np.abs(Appr_Rho_test) == inf] = 0
-Appr_Rho_test[np.abs(Appr_Rho_test) > 11] = np.mean(Appr_Rho_test)
+Appr_Rho_test[np.abs(Appr_Rho_test) > 12] = np.mean(Appr_Rho_test)
 
 #########################################################
 # Define Some Functions
@@ -129,12 +129,12 @@ for epoch in range(train_epochs):
     if np.mod(epoch, 2) == 0:
         lr = lr / 2
     for i in range(int(num_BIGG_BATCH)):
-         Density = 1-np.load(path / ('Density' + str(i)+'.npy'), allow_pickle=True)
+         Density = np.load(path / ('Density' + str(i)+'.npy'), allow_pickle=True)
          Density = np.reshape(Density,[BIGG_BATCH,n,n,1])
 
-         Appr_Rho = 1-np.load(path / ('Appr_Rho' + str(i) + '.npy'), allow_pickle=True)
+         Appr_Rho = np.load(path / ('Appr_Rho' + str(i) + '.npy'), allow_pickle=True)
          Appr_Rho[np.abs(Appr_Rho) == inf] = 0
-         Appr_Rho[np.abs(Appr_Rho) > 11] = np.mean(Appr_Rho)
+         Appr_Rho[np.abs(Appr_Rho) > 12] = np.mean(Appr_Rho)
 
          if epoch < train_epochs - 1:
              for j in range(int(num_batch)):
