@@ -24,9 +24,9 @@ lr              = 0.003
 path  = Path('/home/cvl/Pycharm/pythonProject/Github')
 
 Density_test  = np.load(path / ('Density27.npy'), allow_pickle=True)
-Density_test  = 1-np.reshape(Density_test, [BIGG_BATCH, n, n, 1])
+Density_test  = np.reshape(Density_test, [BIGG_BATCH, n, n, 1])
 
-Appr_Rho_test = 1-np.load(path / ('Appr_Rho27.npy'), allow_pickle=True)
+Appr_Rho_test = np.load(path / ('Appr_Rho27.npy'), allow_pickle=True)
 Appr_Rho_test[np.abs(Appr_Rho_test) == inf] = 0
 Appr_Rho_test[np.abs(Appr_Rho_test) > 11] = np.mean(Appr_Rho_test)
 
@@ -35,19 +35,18 @@ Appr_Rho_test[np.abs(Appr_Rho_test) > 11] = np.mean(Appr_Rho_test)
 #########################################################
 def conv(input, w, strides):
     y = tf.nn.conv2d(input=input, filters=w, strides=strides, padding='SAME')
-    y = tf.nn.leaky_relu(y)
+    y = tf.nn.leaky_relu(-y)
     return y
 
 def deconv(input, w, strides, output):
     y = tf.nn.conv2d_transpose(input=input, filters=w, strides=strides, padding='SAME', output_shape=output)
-    y = tf.nn.leaky_relu(y)
+    y = tf.nn.leaky_relu(-y)
     return y
 
 
 def fullyConnected_layer(input,w,b):
   y = tf.matmul(input,w) + b
   return y
-
 
 #########################################################
 # Define Weights
