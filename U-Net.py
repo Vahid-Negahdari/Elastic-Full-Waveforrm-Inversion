@@ -157,7 +157,7 @@ Density_test  = 1-np.load(path / ('Density27.npy'), allow_pickle=True)
 
 
 del weights
-d1 = np.sqrt(np.sum(np.square(Appr_Final[27000:28000]-Density_test),axis=1)) / np.sqrt(np.sum(np.square(Density_test),axis=1))
+d1 = np.sqrt(np.sum(np.square(Appr_Final[27000:28000]-Density_test),axis=1)) / np.sqrt(np.sum(np.square(1-Density_test),axis=1))
 print(np.mean(d1))
 
 np.save(path / ('Linear_to_Nonlinear_Density.npy'), 1-Appr_Final)
