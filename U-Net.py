@@ -28,7 +28,7 @@ Density_test  = np.reshape(Density_test, [BIGG_BATCH, n, n, 1])
 
 Appr_Rho_test = 1-np.load(path / ('Appr_Rho27.npy'), allow_pickle=True)
 Appr_Rho_test[np.abs(Appr_Rho_test) == inf] = 0
-Appr_Rho_test[np.abs(Appr_Rho_test) > 12] = np.mean(Appr_Rho_test)
+Appr_Rho_test[np.abs(Appr_Rho_test) > 11] = np.mean(Appr_Rho_test)
 
 #########################################################
 # Define Some Functions
