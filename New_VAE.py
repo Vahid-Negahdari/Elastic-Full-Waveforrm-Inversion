@@ -47,7 +47,7 @@ Surface_train = np.load(path / ('Surface_Train.npy'), allow_pickle=True)
 Surface_test  = np.load(path / ('Surface_Test.npy'), allow_pickle=True)
 Surface_train = np.reshape(Surface_train, [BIGG_BATCH, 2*n * k, 1])
 Surface_train = np.concatenate((np.real(Surface_train), np.imag(Surface_train)), axis=1)
-Surface_test  = np.reshape(Surface_test, [BIGG_BATCH, 2*n * k, 1])
+Surface_test  = np.reshape(Surface_test, [1000, 2*n * k, 1])
 Surface_test  = np.concatenate((np.real(Surface_test), np.imag(Surface_test)), axis=1)
 
 
