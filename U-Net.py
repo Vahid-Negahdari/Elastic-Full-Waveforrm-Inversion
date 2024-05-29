@@ -23,10 +23,10 @@ lr              = 0.003
 
 path  = Path('/home/cvl/Pycharm/pythonProject/Github')
 
-Density_test  = np.load(path / ('Density27.npy'), allow_pickle=True)
+Density_test  = 1-np.load(path / ('Density27.npy'), allow_pickle=True)
 Density_test  = np.reshape(Density_test, [BIGG_BATCH, n, n, 1])
 
-Appr_Rho_test = np.load(path / ('Appr_Rho27.npy'), allow_pickle=True)
+Appr_Rho_test = 1-np.load(path / ('Appr_Rho27.npy'), allow_pickle=True)
 Appr_Rho_test[np.abs(Appr_Rho_test) == inf] = 0
 Appr_Rho_test[np.abs(Appr_Rho_test) > 12] = np.mean(Appr_Rho_test)
 
@@ -35,12 +35,12 @@ Appr_Rho_test[np.abs(Appr_Rho_test) > 12] = np.mean(Appr_Rho_test)
 #########################################################
 def conv(input, w, strides):
     y = tf.nn.conv2d(input=input, filters=w, strides=strides, padding='SAME')
-    y = tf.nn.relu(y)
+    y = tf.nn.leaky_relu(y)
     return y
 
 def deconv(input, w, strides, output):
     y = tf.nn.conv2d_transpose(input=input, filters=w, strides=strides, padding='SAME', output_shape=output)
-    y = tf.nn.relu(y)
+    y = tf.nn.leaky_relu(y)
     return y
 
 
@@ -129,12 +129,12 @@ for epoch in range(train_epochs):
     if np.mod(epoch, 2) == 0:
         lr = lr / 2
     for i in range(int(num_BIGG_BATCH)):
-         Density = np.load(path / ('Density' + str(i)+'.npy'), allow_pickle=True)
+         Density = 1-np.load(path / ('Density' + str(i)+'.npy'), allow_pickle=True)
          Density = np.reshape(Density,[BIGG_BATCH,n,n,1])
 
-         Appr_Rho = np.load(path / ('Appr_Rho' + str(i) + '.npy'), allow_pickle=True)
+         Appr_Rho = 1-np.load(path / ('Appr_Rho' + str(i) + '.npy'), allow_pickle=True)
          Appr_Rho[np.abs(Appr_Rho) == inf] = 0
-         Appr_Rho[np.abs(Appr_Rho) > 12] = np.mean(Appr_Rho)
+         Appr_Rho[np.abs(Appr_Rho) > 11] = np.mean(Appr_Rho)
 
          if epoch < train_epochs - 1:
              for j in range(int(num_batch)):
@@ -153,10 +153,10 @@ for epoch in range(train_epochs):
 
 preds                   = Model(Appr_Rho_test).numpy()
 Appr_Final[27000:28000] = np.reshape(preds, [BIGG_BATCH, n ** 2])
-Density_test  = np.load(path / ('Density27.npy'), allow_pickle=True)
+Density_test  = 1-np.load(path / ('Density27.npy'), allow_pickle=True)
 
-d1 = np.sqrt(np.sum(np.square(Appr_Final[27000:28000]-Density_test),axis=1)) / np.sqrt(np.sum(np.square(Density_test),axis=1))
+d1 = np.sqrt(np.sum(np.square(Appr_Final[27000:28000]-Density_test),axis=1)) / np.sqrt(np.sum(1-np.square(Density_test),axis=1))
 print(np.mean(d1))
 
-np.save(path / ('Linear_to_Nonlinear_Density.npy'), Appr_Final)
+np.save(path / ('Linear_to_Nonlinear_Density.npy'), 1-Appr_Final)
 
