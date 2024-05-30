@@ -20,7 +20,7 @@ N1              = 2*k*102
 N2              = n**2
 semi1           = int(np.ceil(N1/8))*128
 semi2           = int(np.ceil(N2/4))*128
-latent_space    = 25                     ;   Z = 500    ; sigma1 = (0.01/np.sqrt(5)) ; sigma2 =0.0025
+latent_space    = 25                    ;   Z = 500    ; sigma1 = (0.1/np.sqrt(5)) ; sigma2 =0.0025
 lr1             = 0.0001
 
 
@@ -162,7 +162,7 @@ def loss_function(L, y_pred, y_true, cond):
     if cond==1 :
        Loss  = (sigma1**(-2))*Loss1 + 1*Loss2
     else :
-        Loss  = (sigma2**(-2))*Loss1 + 1*Loss2
+       Loss  = (sigma2**(-2))*Loss1 + 1*Loss2
     return  [Loss1,Loss2,Loss]
 
 #######################################################
