@@ -13,9 +13,8 @@ train_epochs1   = 12
 train_epochs2   = 4
 batch_size      = 25
 BIGG_BATCH      = 27000
-num_BIGG_BATCH  = 1
-num_batch       = int((BIGG_BATCH-1000)/batch_size)
-n=51
+num_batch       = int((BIGG_BATCH)/batch_size)
+n               = 51
 k               = 9
 N1              = 2*k*102
 N2              = n**2
@@ -23,7 +22,6 @@ semi1           = int(np.ceil(N1/8))*128
 semi2           = int(np.ceil(N2/4))*128
 latent_space    = 25                     ;   Z = 500    ; sigma1 = (0.01/np.sqrt(5)) ; sigma2 =0.0025
 lr1             = 0.0001
-lr2             = 0.0000000001
 
 
 #########################################################
@@ -144,7 +142,7 @@ def Decode( C, cond  ):
     C  = deconv(C, weights[15], 2, [C.shape[0], N2, 1])
 
     if  cond == 2 :
-        C = C + tf.constant(np.random.normal(0, 1, [C.shape[0],N2,1]).astype('float32'))*sigma1#tf.math.exp(weights[16]/2)
+        C = C + tf.constant(np.random.normal(0, 1, [C.shape[0],N2,1]).astype('float32'))*sigma1
         C = fullyConnected_layer(C[:,:,0], weights[16], weights[17])
         C = tf.nn.leaky_relu(C, alpha=1)
         C = tf.reshape(C, [C.shape[0], int(np.ceil(N1/8)), 128])
