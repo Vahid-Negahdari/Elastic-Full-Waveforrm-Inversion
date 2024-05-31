@@ -1,5 +1,6 @@
+paper [[1]](#1).
 ## Getting Started
-"...the **go to** statement should be abolished..." [[1]](#1).
+
 ### Dependencies
 
 * Describe any prerequisites, libraries, OS version, etc., needed before installing program.
@@ -18,11 +19,6 @@
 code blocks for commands
 ```
 
-## References
-<a id="1">[1]</a> 
-Dijkstra, E. W. (1968). 
-Go to statement considered harmful. 
-Communications of the ACM, 11(3), 147-148.
 
 
 
@@ -54,10 +50,10 @@ Communications of the ACM, 11(3), 147-148.
 
 ---
 ## :books: References 
-- [1] J. Krause, J. Deng, M. Stark, and L. Fei-Fei, ”Collecting a Large-
-Scale Dataset of Fine-Grained Cars,” Computer Science Department,
-Stanford University, and Max Planck Institute for Informatics. Available:
-https://ai.stanford.edu/jkrause/papers/fgvc13.pdf.
+<a id="1">[1]</a> 
+Dijkstra, E. W. (1968). 
+Go to statement considered harmful. 
+Communications of the ACM, 11(3), 147-148.
 
 ## :relaxed: Author  
 Vahid Negahdari
