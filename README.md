@@ -1,26 +1,30 @@
 # Introduction
 
-
+---
 ## First Method
-mamamia mamasita
-
-nba
 
 
 
 
+---
 ## Second Method
+- **Least Square**
+
+
+- **Inverse Convolution**
+
+
+- **Linear to Nonlinear**
 
 
 
 
-
-
+---
 ## Third Method
 
 
 
-
+---
 
 
 ## Contact 
