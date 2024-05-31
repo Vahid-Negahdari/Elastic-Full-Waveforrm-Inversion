@@ -20,7 +20,7 @@ N1              = 2*k*102
 N2              = n**2
 semi1           = int(np.ceil(N1/8))*128
 semi2           = int(np.ceil(N2/4))*128
-latent_space    = 25                    ;   Z = 500    ; sigma1 = (0.1/np.sqrt(5)) ; sigma2 =0.05
+latent_space    = 25                    ;   Z = 500    ; sigma1 = (0.1/np.sqrt(5)) ; sigma2 =0.025
 lr1             = 0.0001
 
 
@@ -31,7 +31,7 @@ path  = Path('/home/cvl/Pycharm/pythonProject/Github')
 
 
 Density_train = np.load(path / ('Density_Train.npy'), allow_pickle=True) +1
-Density_test  = np.load(path / ('Density_Test.npy'), allow_pickle=True) +1
+Density_test  = np.load(path / ('Density_Test.npy'), allow_pickle=True) + 1
 Density_train = np.expand_dims(Density_train, axis=2).astype('float32')
 Density_test  = np.expand_dims(Density_test, axis=2).astype('float32')
 
