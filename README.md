@@ -8,16 +8,30 @@ First of all just clone the repository using git command:
 ``` 
 git clone https://github.com/Vahid-Negahdari/Inverse_Elastic_Scattering.git
 ```
-### Dependencies
+### Requirements
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* Python 3.x
+* Tensorflow 2.x
+* Scipy 
+* Numpy
+* At least 12 Gig GPU Ram
+
 
 ### Installing
+1. Clone the repository to your local machine:
+``` 
+git clone https://github.com/Vahid-Negahdari/Inverse_Elastic_Scattering.git
+```
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+2. Change directory into the cloned repository:
+``` 
+cd All-In-One-Python-Projects/<Project_name>
+```
 
+3. Run the program using:
+``` 
+python3 <script_name>.py
+```
 ### Executing program
 
 * How to run the program
