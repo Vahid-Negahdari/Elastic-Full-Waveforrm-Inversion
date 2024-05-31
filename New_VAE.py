@@ -20,7 +20,7 @@ N1              = 2*k*102
 N2              = n**2
 semi1           = int(np.ceil(N1/8))*128
 semi2           = int(np.ceil(N2/4))*128
-latent_space    = 25                    ;   Z = 500    ; sigma1 = (0.1/np.sqrt(5)) ; sigma2 =0.025
+latent_space    = 25                    ;   Z = 500    ; sigma1 = (0.05/np.sqrt(5)) ; sigma2 =0.025
 lr1             = 0.0001
 
 
