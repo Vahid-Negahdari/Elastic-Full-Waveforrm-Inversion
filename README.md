@@ -1,5 +1,6 @@
-# Elastic Full-Waveform-Inversion : Physics-Assisted Data-Driven Method
+# Elastic Full-Waveform-Inversion : Physics-Guided Data-Driven Methods
 
+## Description
 paper [[1]](#1).
 ## Getting Started
 First of all just clone the repository using git command:
