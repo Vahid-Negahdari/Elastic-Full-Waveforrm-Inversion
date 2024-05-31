@@ -149,14 +149,14 @@ for p in range(4):
 for j in range(num_BIGG_BATCH + 1 ):
     pathh1 = path/Path('Appr_Disp0Real' + str(j) + '.npy')
     pathh2 = path/Path('Appr_Disp1Real' + str(j) + '.npy')
-    A = np.load(pathh1, allow_pickle=True).astype('float32')
-    B = np.load(pathh2, allow_pickle=True).astype('float32')
+    A = np.load(pathh1, allow_pickle=True)
+    B = np.load(pathh2, allow_pickle=True)
     np.save(path / ('Appr_Disp_Real' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
 
     pathh3 = path/Path('Appr_Disp0Complex' + str(j) + '.npy')
     pathh4 = path/Path('Appr_Disp1Complex' + str(j) + '.npy')
-    A = np.load(pathh3, allow_pickle=True).astype('float32')
-    B = np.load(pathh4, allow_pickle=True).astype('float32')
+    A = np.load(pathh3, allow_pickle=True)
+    B = np.load(pathh4, allow_pickle=True)
     np.save(path / ('Appr_Disp_Complex' + str(j) + '.npy'),  np.concatenate(  (A, B) , axis=1)     )
 
     pathh1.unlink() ; pathh2.unlink() ; pathh3.unlink() ; pathh4.unlink()

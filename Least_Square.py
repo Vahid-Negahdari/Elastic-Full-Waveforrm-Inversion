@@ -21,7 +21,7 @@ U   = U1 + 1j*U2
 
 
 
-Appr_Rho = np.zeros([BIGG_BATCH,n**2])
+Appr_Rho = np.zeros([BIGG_BATCH,n**2],dtype='float32')
 
 for i in range(BIGG_BATCH):
     print(i)

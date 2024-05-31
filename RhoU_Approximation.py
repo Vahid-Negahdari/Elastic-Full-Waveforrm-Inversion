@@ -118,7 +118,7 @@ for p in range(4):
               if np.mod(epoch,2)==0 :
                  lr=lr/2
               for j in range(num_BIGG_BATCH):
-                    Disp_appr = np.load(path / ('Appr_Disp_' +name1 + str(j) + '.npy' ), allow_pickle=True).astype('float32')[:,:,K]
+                    Disp_appr = np.load(path / ('Appr_Disp_' +name1 + str(j) + '.npy' ), allow_pickle=True)[:,:,K]
                     RhoU      = np.load(path / ('RhoU_' + name1 + str(j) + '.npy'), allow_pickle=True)[:,a*n**2:(a+1)*n**2,K]
                     RhoU   = np.reshape  (RhoU, [BIGG_BATCH , k*n**2])
                     if epoch < train_epochs - 1:
@@ -152,26 +152,26 @@ for p in range(4):
 for j in range(num_BIGG_BATCH+1):
     A = np.zeros([1000,2*(n**2),9],'float32')
     B = np.zeros([1000,2*(n**2),9],'float32')
-    Appr_Rho = np.zeros([BIGG_BATCH, n ,n, 36], dtype=np.float32)
+    Appr_Rho = np.zeros([BIGG_BATCH, n ,n, 36],'float32')
     for t in range(3):
 
         pathh1 = path/Path(str(t) + 'Appr_RhoU0Real'  + str(j) + '.npy')
         pathh2 = path/Path(str(t) + 'Appr_RhoU1Real'  + str(j) + '.npy')
-        A1     = np.load(pathh1, allow_pickle=True).astype('float32')
-        A2     = np.load(pathh2, allow_pickle=True).astype('float32')
+        A1     = np.load(pathh1, allow_pickle=True)
+        A2     = np.load(pathh2, allow_pickle=True)
         A[:,:,3*t:3*(t+1)]     = np.concatenate((A1, A2), axis=1)
 
 
         pathh3 = path/Path(str(t) + 'Appr_RhoU0Complex'  + str(j) + '.npy')
         pathh4 = path/Path(str(t) + 'Appr_RhoU1Complex'  + str(j) + '.npy')
-        B1     = np.load(pathh3, allow_pickle=True).astype('float32')
-        B2     = np.load(pathh4, allow_pickle=True).astype('float32')
+        B1     = np.load(pathh3, allow_pickle=True)
+        B2     = np.load(pathh4, allow_pickle=True)
         B[:,:,3*t:3*(t+1)]     = np.concatenate((B1, B2), axis=1)
 
         pathh1.unlink() ; pathh2.unlink() ; pathh3.unlink() ; pathh4.unlink()
 
-    C = np.load(path / ('Appr_Disp_Real'+ str(j) + '.npy'), allow_pickle=True).astype('float32')
-    D = np.load(path / ('Appr_Disp_Complex' + str(j) + '.npy'), allow_pickle=True).astype('float32')
+    C = np.load(path / ('Appr_Disp_Real'+ str(j) + '.npy'), allow_pickle=True)
+    D = np.load(path / ('Appr_Disp_Complex' + str(j) + '.npy'), allow_pickle=True)
 
     Appr_Rho[:, :, :, 0:9]   = np.reshape((A / C)[:, 0:n ** 2, :],      [BIGG_BATCH, n, n, 9])
     Appr_Rho[:, :, :, 9:18]  = np.reshape((A / C)[:, n**2:2*n ** 2, :], [BIGG_BATCH, n, n, 9])

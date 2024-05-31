@@ -25,7 +25,7 @@ path = Path('/home/cvl/Pycharm/pythonProject/Github')
 # Import Density and divide it
 #########################################################
 Density = np.load(path / ('Density_Train.npy'), allow_pickle=True)
-Density = np.concatenate ( (Density , np.load(path / ('Density_Test.npy'), allow_pickle=True)) ,axis=0 ).astype('float32')
+Density = np.concatenate ( (Density , np.load(path / ('Density_Test.npy'), allow_pickle=True)) ,axis=0 )
 for i in range(num_BIG_BATCH):
     np.save(path / ('Density' + str(i) + '.npy'), Density[i*BIG_BATCH:(i+1)*BIG_BATCH], allow_pickle=True)
 
