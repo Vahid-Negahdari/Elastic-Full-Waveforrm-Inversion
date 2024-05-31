@@ -59,3 +59,5 @@ Communications of the ACM, 11(3), 147-148.
 Vahid Negahdari
 
 Email:  <vahid_negahdari@outlook.com>
+
+Any discussions and contribution are welcomed!
