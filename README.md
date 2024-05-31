@@ -2,8 +2,8 @@ paper [[1]](#1).
 ## Getting Started
 First of all just clone the repository using git command:
 
-'git clone https://github.com/Vahid-Negahdari/Inverse_Elastic_Scattering.git
-'
+'''{git clone https://github.com/Vahid-Negahdari/Inverse_Elastic_Scattering.git
+}'''
 ### Dependencies
 
 * Describe any prerequisites, libraries, OS version, etc., needed before installing program.
