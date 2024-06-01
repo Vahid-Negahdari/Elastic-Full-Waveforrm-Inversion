@@ -11,12 +11,13 @@ git clone https://github.com/Vahid-Negahdari/Inverse_Elastic_Scattering.git
 ### Requirements
 
 * Python 3.x
-* Tensorflow 2.x
+* Tensorflow-gpu 2.x
 * Scipy 
 * Numpy
 * At least 12 Gig GPU Ram
 
-
+Please see the requirements documentation for system requirements and more
+information about the supported operating systems.
 ### Installing
 1. Clone the repository to your local machine:
 ``` 
@@ -34,10 +35,26 @@ python3 <script_name>.py
 ```
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+1. For run first method:
+``` 
+python3 First-Method.py
 ```
-code blocks for commands
+2. For run second method  first:
+``` 
+python3 Displacement.py
+```
+   1. sfsafa
+   2. safsa
+```
+python3 First-Method.py
+python3 First-Method.py
+python3 Unet.py
+```
+3. Third Method
+```
+python3 First-Method.py
+python3 First-Method.py
+python3 First-Method.py
 ```
 
 
