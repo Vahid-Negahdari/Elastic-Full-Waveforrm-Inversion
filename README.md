@@ -35,15 +35,18 @@ python3 <script_name>.py
 ```
 ### Executing program
 
-1. For run first method:
+1. For run the first method:
 ``` 
 python3 First-Method.py
 ```
+
+
 2. For run second method  first:
 ``` 
 python3 Displacement.py
 ```
 
+        * for run Least Square technique
       
 
 ```
