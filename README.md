@@ -5,8 +5,11 @@ In this project, we present methods based on data-driven techniques for the time
 Full-Waveform Inversion problem. Our project consists of several methods, including pure data-driven
 technique (First Method), the integrated application of deep learning and the physics underlying 
 the problem (Second Method) which includes several independent techniques, and a probabilistic
-deep learning technique (Third Method).\
-The full article for this source code can be found on [[1]](#1)
+deep learning technique (Third Method). The full article for this source code can be found on [[1]](#1).\
+The dataset needed for this project is automatically uploaded within the codes. However, it's
+important to mention that for the second and third techniques to be employed, a larger dataset
+had to be generated. Due to limitations on uploading data, we have included the necessary code
+for creating auxiliary datasets.
 ## :key: Getting Started
 Please follow the guidelines we've provided to use the code effectively.
 ### Requirements
