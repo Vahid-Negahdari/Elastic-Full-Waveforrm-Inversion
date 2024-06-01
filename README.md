@@ -5,15 +5,9 @@ paper [[1]](#1).
 ## :key: Getting Started
 In order to use this code, following this instruction:
 ### Requirements
-
-* Python 3.x
-* Tensorflow-gpu 2.x
-* Scipy 
-* Numpy
-* At least 12 Gig GPU Ram
-
-Please see the requirements documentation for system requirements and more
-information about the supported operating systems.
+Please see the 
+[requirements.txt](https://github.com/Vahid-Negahdari/Inverse_Elastic_Scattering/blob/main/requirements.txt) 
+documentation for library and hardware requirements.
 ### Installing
 1. Clone the repository to your local machine:
 ``` 
