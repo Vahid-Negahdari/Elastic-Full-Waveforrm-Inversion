@@ -45,8 +45,6 @@ you first need to execute the linear-to-nonlinear process and then follow up wit
 ```
 python3 First-Method.py
 ```
-To utilize the Third Method, the New-VAE Method,
-you first need to execute the linear-to-nonlinear process and then follow up with:
 
 ## :books: References 
 <a id="1">[1]</a> 
