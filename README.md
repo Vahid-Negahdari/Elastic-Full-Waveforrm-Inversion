@@ -25,62 +25,32 @@ cd All-In-One-Python-Projects/<Project_name>
 ```
 ### Executing program
 
-1. For run the first method:
+1.For run the first method:
 ``` 
 cd All-In-One-Python-Projects/<Project_name>
 ```
-2. For run second method  first:
-
+2.For use techniques within second method, first
 ``` 
-python3 Displacement.py
-
-```
-
-for run Least Square technique
-      
-
+cd All-In-One-Python-Projects/<Project_name>
+```    
+* For use **Least Square** technique
+  ``` 
+  cd All-In-One-Python-Projects/<Project_name>
+  ```
+* For use **Linear-to-Nonlinear** technique
+  ``` 
+  cd All-In-One-Python-Projects/<Project_name>
+  ```  
+* For use **Inverse Convolution** technique
+  ``` 
+  this code soon completed
+  ```  
+3. For use third method (New-VAE technique) initially need run linear-to-nonlinear technique and then run :
 ```
 python3 First-Method.py
-python3 First-Method.py
-python3 Unet.py
-```
-3. Third Method
-```
-python3 First-Method.py
-python3 First-Method.py
-python3 First-Method.py
 ```
 
 
-
-
-
-
----
-## First Method
-
-
-
-
----
-## Second Method
-- **Least Square**
-
-
-- **Inverse Convolution**
-
-
-- **Linear to Nonlinear**
-
-
-
-
----
-## Third Method
-
-
-
----
 ## :books: References 
 <a id="1">[1]</a> 
 Dijkstra, E. W. (1968). 
