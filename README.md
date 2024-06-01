@@ -23,25 +23,20 @@ git clone https://github.com/Vahid-Negahdari/Inverse_Elastic_Scattering.git
 ``` 
 cd All-In-One-Python-Projects/<Project_name>
 ```
-
-3. Run the program using:
-``` 
-python3 <script_name>.py
-```
 ### Executing program
 
 1. For run the first method:
 ``` 
-python3 First-Method.py
+cd All-In-One-Python-Projects/<Project_name>
 ```
-
-
 2. For run second method  first:
+
 ``` 
 python3 Displacement.py
+
 ```
 
-        * for run Least Square technique
+for run Least Square technique
       
 
 ```
