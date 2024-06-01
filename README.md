@@ -20,31 +20,33 @@ cd All-In-One-Python-Projects/<Project_name>
 ```
 ### Executing program
 
-1.For run the first method, **Direct Deep Learning Inversion** :
+1.To execute the First Method, which is **Direct Deep Learning Inversion**:
 ``` 
 python3 First-Method.py
 ```
-2.For use techniques within second method, first
+2.To apply techniques within the Second Method, initially run:
 ``` 
 python3 First-Method.py
 ```    
-* For use **Least Square** technique
+* To utilize the **Least Square** technique, execute:
   ``` 
   python3 First-Method.py
   ```
-* For use **Linear-to-Nonlinear** technique
+* To utilize the **Linear-to-Nonlinear** technique, execute:
   ``` 
   python3 First-Method.py
   ```  
-* For use **Inverse Convolution** technique
+* To utilize the **Inverse Convolution** technique, execute:
   ``` 
-  this code soon completed
+  This code will be completed soon.
   ```  
-3.For use third method, **New-VAE** technique, initially need run linear-to-nonlinear technique and then run :
+3.To utilize the Third Method, the **New-VAE** Method,
+you first need to execute the linear-to-nonlinear process and then follow up with:
 ```
 python3 First-Method.py
 ```
-
+To utilize the Third Method, the New-VAE Method,
+you first need to execute the linear-to-nonlinear process and then follow up with:
 
 ## :books: References 
 <a id="1">[1]</a> 
