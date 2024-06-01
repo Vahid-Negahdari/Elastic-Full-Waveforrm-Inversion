@@ -1,7 +1,9 @@
 # Elastic Full-Waveform-Inversion : Physics-Guided Data-Driven Methods
 
 ## :art: About the project
-paper [[1]](#1).
+The full article for this source code can be found on [[1]](#1),
+named Elastic Full-Waveform Inversion : How the physics of problem improves
+data-driven techniques?
 ## :key: Getting Started
 Please follow the guidelines we've provided to use the code effectively.
 ### Requirements
