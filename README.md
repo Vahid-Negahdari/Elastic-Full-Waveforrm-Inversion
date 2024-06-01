@@ -3,8 +3,9 @@
 ## :art: About the project
 In this project, we present methods based on data-driven techniques for the time-harmonic Elastic
 Full-Waveform Inversion problem. Our project consists of several methods, including pure data-driven
-technique(First Method), the integrated application of deep learning and the physics
-underlying the problem(Second Method), and a probabilistic deep learning technique(Third Method). 
+technique (First Method), the integrated application of deep learning and the physics underlying 
+the problem (Second Method) which includes several independent techniques, and a probabilistic
+deep learning technique (Third Method). 
 
 The full article for this source code can be found on [[1]](#1),
 named Elastic Full-Waveform Inversion : How the physics of problem improves
@@ -45,7 +46,7 @@ python3 First-Method.py
   ```  
 * To utilize the **Inverse Convolution** technique, execute:
   ``` 
-  This code will be completed soon.
+  This code will be completed soon
   ```  
 3.To utilize the Third Method, the **New-VAE** Method,
 you first need to execute the linear-to-nonlinear process and then follow up with:
