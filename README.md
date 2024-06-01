@@ -7,7 +7,7 @@ technique (First Method), the integrated application of deep learning and the ph
 the problem (Second Method) which includes several independent techniques, and a probabilistic
 deep learning technique (Third Method). The full paper for this source code can be found on [[1]](#1).\
 The dataset needed for this project is automatically uploaded within the codes. However, it's
-important to mention that for the second and third methods to be employed, a larger dataset
+important to mention that for the Second and Third methods to be employed, a larger dataset
 had to be generated. Due to limitations on uploading data, we have included the necessary code
 for creating auxiliary datasets.
 ## :key: Getting Started
