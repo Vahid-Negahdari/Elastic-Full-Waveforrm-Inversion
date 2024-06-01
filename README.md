@@ -28,19 +28,19 @@ cd All-In-One-Python-Projects/<Project_name>
 
 1.For run the first method, **Direct Deep Learning Inversion** :
 ``` 
-cd All-In-One-Python-Projects/<Project_name>
+python3 First-Method.py
 ```
 2.For use techniques within second method, first
 ``` 
-cd All-In-One-Python-Projects/<Project_name>
+python3 First-Method.py
 ```    
 * For use **Least Square** technique
   ``` 
-  cd All-In-One-Python-Projects/<Project_name>
+  python3 First-Method.py
   ```
 * For use **Linear-to-Nonlinear** technique
   ``` 
-  cd All-In-One-Python-Projects/<Project_name>
+  python3 First-Method.py
   ```  
 * For use **Inverse Convolution** technique
   ``` 
