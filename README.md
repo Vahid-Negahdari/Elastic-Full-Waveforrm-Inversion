@@ -1,8 +1,8 @@
 # Elastic Full-Waveform-Inversion : Physics-Guided Data-Driven Methods
 
-## Description
+## About the project
 paper [[1]](#1).
-## Getting Started
+## :key: Getting Started
 ### Requirements
 
 * Python 3.x
@@ -25,7 +25,7 @@ cd All-In-One-Python-Projects/<Project_name>
 ```
 ### Executing program
 
-1.For run the first method:
+1.For run the first method, **Direct Deep Learning Inversion** :
 ``` 
 cd All-In-One-Python-Projects/<Project_name>
 ```
@@ -45,7 +45,7 @@ cd All-In-One-Python-Projects/<Project_name>
   ``` 
   this code soon completed
   ```  
-3. For use third method (New-VAE technique) initially need run linear-to-nonlinear technique and then run :
+3. For use third method, **New-VAE** technique, initially need run linear-to-nonlinear technique and then run :
 ```
 python3 First-Method.py
 ```
