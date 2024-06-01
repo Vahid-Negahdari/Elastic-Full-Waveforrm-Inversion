@@ -1,6 +1,6 @@
 # Elastic Full-Waveform-Inversion : Physics-Guided Data-Driven Methods
 
-##:art: About the project
+## :art: About the project
 paper [[1]](#1).
 ## :key: Getting Started
 In order to use this code, following this instruction:
