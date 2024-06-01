@@ -1,6 +1,11 @@
 # Elastic Full-Waveform-Inversion : Physics-Guided Data-Driven Methods
 
 ## :art: About the project
+In this project, we present methods based on data-driven techniques for the time-harmonic Elastic
+Full-Waveform Inversion problem. Our project consists of several methods, including pure data-driven
+technique(First Method), the integrated application of deep learning and the physics
+underlying the problem(Second Method), and a probabilistic deep learning technique(Third Method). 
+
 The full article for this source code can be found on [[1]](#1),
 named Elastic Full-Waveform Inversion : How the physics of problem improves
 data-driven techniques?
