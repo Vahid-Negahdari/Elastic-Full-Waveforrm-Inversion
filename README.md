@@ -43,8 +43,9 @@ python3 First-Method.py
 ``` 
 python3 Displacement.py
 ```
-   1. sfsafa
-   2. safsa
+
+      
+
 ```
 python3 First-Method.py
 python3 First-Method.py
