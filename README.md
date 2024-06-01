@@ -3,7 +3,7 @@
 ## :art: About the project
 paper [[1]](#1).
 ## :key: Getting Started
-In order to use this code, following this instruction:
+Please follow the guidelines we've provided to use the code effectively.
 ### Requirements
 Please see the 
 [requirements.txt](https://github.com/Vahid-Negahdari/Inverse_Elastic_Scattering/blob/main/requirements.txt) 
