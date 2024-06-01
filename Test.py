@@ -22,13 +22,13 @@ semi         = int(np.ceil(N/8)*128)
 #########################################################
 # Import Data
 #########################################################
-path = Path.cwd().parent /('Inverse_Elastic_Scattering')
+path = Path.cwd() /('Inverse_Elastic_Scattering')
 
 if path.is_dir() == False :
    url = 'https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/z5x9rjn3b8-1.zip'
    http_response = urlopen(url)
    archive = ZipFile(BytesIO(http_response.read()))
-   archive.extractall(path=path.parent)
+   archive.extractall(path=path)
 
 
 Density_train = np.load(path / ('Density_Train.npy'), allow_pickle=True)
@@ -128,7 +128,7 @@ for epoch in range(train_epochs):
          Test_Score(epoch)
 
 
-Fake_Dens = np.zeros([28000,n**2]).astype('float32')
+Fake_Dens = np.zeros([28000,n**2],dtype='float32')
 
 Density = np.concatenate((Density_train,Density_test),axis=0)
 Surface = np.concatenate((Surface_train,Surface_test),axis=0)
