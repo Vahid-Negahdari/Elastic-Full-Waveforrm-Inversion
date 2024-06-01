@@ -1,0 +1,15 @@
+Hardware Requirements:
+
+- At Least 12 Gig Vram for GPU
+- At Least 120 Gig Hard-Disk availability for execute Second Method
+
+
+
+
+Library Requirements and Python Version:
+
+- Python          3.x
+- Tensorflow-gpu  2.x
+- Numpy
+- Scipy
+

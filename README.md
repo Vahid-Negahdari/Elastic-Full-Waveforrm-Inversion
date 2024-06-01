@@ -46,7 +46,7 @@ cd All-In-One-Python-Projects/<Project_name>
   ``` 
   this code soon completed
   ```  
-3. For use third method, **New-VAE** technique, initially need run linear-to-nonlinear technique and then run :
+3.For use third method, **New-VAE** technique, initially need run linear-to-nonlinear technique and then run :
 ```
 python3 First-Method.py
 ```
