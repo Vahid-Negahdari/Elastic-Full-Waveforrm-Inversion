@@ -36,7 +36,7 @@ Density_train = np.expand_dims(Density_train, axis=2).astype('float32')
 Density_test  = np.expand_dims(Density_test, axis=2).astype('float32')
 
 
-Appr_Rho       = np.load(path / ('Linear_to_Nonlinear_Density.npy'), allow_pickle=True) +1
+Appr_Rho       = np.load(path / ('Linear_to_Nonlinear_Density.npy'), allow_pickle=True)
 Appr_Rho_test  = np.expand_dims(Appr_Rho[27000:28000],axis=2)
 Appr_Rho_train = np.expand_dims(Appr_Rho[0:27000],axis=2)
 
