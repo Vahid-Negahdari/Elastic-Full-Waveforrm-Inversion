@@ -1,12 +1,15 @@
 import tensorflow as tf
 import numpy as np
 from pathlib import Path
+from io import BytesIO
+from zipfile import ZipFile
+from urllib.request import urlopen
 
 #########################################################
 # Define Hyperparameter
 #########################################################
 
-train_epochs = 35
+train_epochs = 30
 batch_size   = 25
 BIGG_BATCH   = 27000
 num_batch    = int(BIGG_BATCH/batch_size)
@@ -19,7 +22,16 @@ semi         = int(np.ceil(N/8)*128)
 #########################################################
 # Import Data
 #########################################################
-path = Path('/home/cvl/Pycharm/pythonProject/Github')
+path = Path.cwd() /('Dataset')
+
+if path.is_dir() == False :
+   print('Downloading Dataset...')
+   url = 'https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/z5x9rjn3b8-1.zip'
+   http_response = urlopen(url)
+   archive = ZipFile(BytesIO(http_response.read()))
+   archive.extractall(path=path.parent)
+   path.rename('Dataset')
+   print('Download Completed.')
 
 Density_train = np.load(path / ('Density_Train.npy'), allow_pickle=True)
 Density_test  = np.load(path / ('Density_Test.npy'), allow_pickle=True)
@@ -133,10 +145,6 @@ d2=np.sqrt(np.sum(np.square(Fake_Dens[27000:28000]-Density[27000:28000]),axis=1)
 print(np.mean(d1))
 print(np.mean(d2))
 
-d1=np.sqrt(np.sum(np.square(Fake_Dens[0:27000]-Density[0:27000]))) / np.sqrt(np.sum(np.square(Density[0:27000])))
-d2=np.sqrt(np.sum(np.square(Fake_Dens[27000:28000]-Density[27000:28000]))) / np.sqrt(np.sum(np.square(Density[27000:28000])))
-print(np.mean(d1))
-print(np.mean(d2))
 
 
 
