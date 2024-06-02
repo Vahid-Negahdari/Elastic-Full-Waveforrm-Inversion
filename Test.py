@@ -22,13 +22,16 @@ semi         = int(np.ceil(N/8)*128)
 #########################################################
 # Import Data
 #########################################################
-path = Path.cwd() /('Elastic-Full-Waveforrm-Inversion')
+path = Path.cwd() /('Dataset')
 
 if path.is_dir() == False :
+   print('Downloading Dataset...')
    url = 'https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/z5x9rjn3b8-1.zip'
    http_response = urlopen(url)
    archive = ZipFile(BytesIO(http_response.read()))
-   archive.extractall(path=path)
+   archive.extractall(path=path.parent)
+   path.rename('Dataset')
+   print('Download Completed.')
 
 
 Density_train = np.load(path / ('Density_Train.npy'), allow_pickle=True)
