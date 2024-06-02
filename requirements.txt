@@ -12,4 +12,7 @@ Library Requirements and Python Version:
 - Tensorflow-gpu  2.x
 - Numpy
 - Scipy
+- zipfile
+- io
+- urllib
 

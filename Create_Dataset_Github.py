@@ -4,6 +4,9 @@ import scipy
 import scipy.integrate
 import scipy.special
 from   pathlib import Path
+from   io import BytesIO
+from   zipfile import ZipFile
+from   urllib.request import urlopen
 import time
 
 #########################################################
@@ -14,16 +17,26 @@ n = 51  ; N = 2*n-1
 l = 20  ; h = (2 * l) / (N - 1)
 xy = int((N - 1) / 2)   ;  m = 2*n-1   ;  mm = int((m - 1) / 2)
 n_u  = 9
-num_BIG_BATCH = 28
+num_BIG_BATCH = 1
 BIG_BATCH     = 1000
 mu = 1e+4  ; lambdaa = 1e+4
 K  = 40
 
-path = Path('/home/cvl/Pycharm/pythonProject/Github')
-
 #########################################################
 # Import Density and divide it
 #########################################################
+path = Path.cwd() /('Dataset')
+
+if path.is_dir() == False :
+   print('Downloading Dataset...')
+   url = 'https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/5ggj5twn75-1.zip'
+   http_response = urlopen(url)
+   archive = ZipFile(BytesIO(http_response.read()))
+   archive.extractall(path=path.parent)
+   (path.parent/('LINF_180012400')).rename('Dataset')
+   print('Download Completed.')
+
+
 Density = np.load(path / ('Density_Train.npy'), allow_pickle=True)
 Density = np.concatenate ( (Density , np.load(path / ('Density_Test.npy'), allow_pickle=True)) ,axis=0 )
 for i in range(num_BIG_BATCH):

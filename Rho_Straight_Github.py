@@ -26,12 +26,13 @@ path = Path.cwd() /('Dataset')
 
 if path.is_dir() == False :
    print('Downloading Dataset...')
-   url = 'https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/z5x9rjn3b8-1.zip'
+   url = 'https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/5ggj5twn75-1.zip'
    http_response = urlopen(url)
    archive = ZipFile(BytesIO(http_response.read()))
    archive.extractall(path=path.parent)
-   path.rename('Dataset')
+   (path.parent/('LINF_180012400')).rename('Dataset')
    print('Download Completed.')
+
 
 Density_train = np.load(path / ('Density_Train.npy'), allow_pickle=True)
 Density_test  = np.load(path / ('Density_Test.npy'), allow_pickle=True)
