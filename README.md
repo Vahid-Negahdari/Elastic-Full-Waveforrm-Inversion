@@ -1,4 +1,4 @@
-# Elastic Full-Waveform-Inversion : Physics-Guided Data-Driven Methods :pencil:
+# Elastic FWI : Physics-Guided Data-Driven Methods 
 
 ## :art: About the project
 In this project, we present methods based on data-driven techniques for the time-harmonic Elastic
