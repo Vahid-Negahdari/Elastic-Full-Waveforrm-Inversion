@@ -17,7 +17,7 @@ n = 51  ; N = 2*n-1
 l = 20  ; h = (2 * l) / (N - 1)
 xy = int((N - 1) / 2)   ;  m = 2*n-1   ;  mm = int((m - 1) / 2)
 n_u  = 9
-num_BIG_BATCH = 1
+num_BIG_BATCH = 28
 BIG_BATCH     = 1000
 mu = 1e+4  ; lambdaa = 1e+4
 K  = 40
@@ -71,7 +71,7 @@ def Mat_G():
     # Generate Green Functions
     #########################################################################################################################
 
-    oo = np.zeros([2, 2], dtype='complex64')
+    oo  = np.zeros([2, 2], dtype='complex64')
     phi = np.zeros([N, N, 2, 2], dtype='complex64')
 
     GG = np.zeros([2, 2], dtype='complex64')
