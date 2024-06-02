@@ -78,26 +78,26 @@ def Mat_G():
     kp = K / np.sqrt(2 * mu + lambdaa)
     ks = K / np.sqrt(mu)
 
-    f0 = lambda y, x:  scipy.real(scipy.special.hankel1(0, ks*((x**2 + y**2)**0.5) ))
-    g0 = lambda y, x:  scipy.imag(scipy.special.hankel1(0, ks*((x**2 + y**2)**0.5) ))
+    f0 = lambda y, x:  np.real(scipy.special.hankel1(0, ks*((x**2 + y**2)**0.5) ))
+    g0 = lambda y, x:  np.imag(scipy.special.hankel1(0, ks*((x**2 + y**2)**0.5) ))
 
 
 
 
-    f1 = lambda y, x: (ks*(scipy.real(scipy.special.hankel1(1, ks * ((x ** 2 + y ** 2) ** 0.5)))) / ((x ** 2 + y ** 2) ** 0.5)) - \
-                      (kp*(scipy.real(scipy.special.hankel1(1, kp * ((x ** 2 + y ** 2) ** 0.5)))) / ((x ** 2 + y ** 2) ** 0.5))
+    f1 = lambda y, x: (ks*(np.real(scipy.special.hankel1(1, ks * ((x ** 2 + y ** 2) ** 0.5)))) / ((x ** 2 + y ** 2) ** 0.5)) - \
+                      (kp*(np.real(scipy.special.hankel1(1, kp * ((x ** 2 + y ** 2) ** 0.5)))) / ((x ** 2 + y ** 2) ** 0.5))
 
-    g1 = lambda y, x: (ks*(scipy.imag(scipy.special.hankel1(1, ks * ((x ** 2 + y ** 2) ** 0.5)))) / ((x ** 2 + y ** 2) ** 0.5)) - \
-                      (kp*(scipy.imag(scipy.special.hankel1(1, kp * ((x ** 2 + y ** 2) ** 0.5)))) / ((x ** 2 + y ** 2) ** 0.5))
-
-
+    g1 = lambda y, x: (ks*(np.imag(scipy.special.hankel1(1, ks * ((x ** 2 + y ** 2) ** 0.5)))) / ((x ** 2 + y ** 2) ** 0.5)) - \
+                      (kp*(np.imag(scipy.special.hankel1(1, kp * ((x ** 2 + y ** 2) ** 0.5)))) / ((x ** 2 + y ** 2) ** 0.5))
 
 
-    f2 = lambda y, x: ((ks**2)*(scipy.real(scipy.special.hankel1(2, ks * ((x**2 + y**2) ** 0.5)))) * (x**2) / (x**2 + y**2))-\
-                      ((kp**2)*(scipy.real(scipy.special.hankel1(2, kp * ((x**2 + y**2) ** 0.5)))) * (x**2) / (x**2 + y**2))
 
-    g2 = lambda y, x: ((ks ** 2) * (scipy.imag(scipy.special.hankel1(2, ks * ((x**2 + y**2) ** 0.5)))) * (x**2) / (x**2 + y**2))-\
-                      ((kp ** 2) * (scipy.imag(scipy.special.hankel1(2, kp * ((x**2 + y**2) ** 0.5)))) * (x**2) / (x**2 + y**2))
+
+    f2 = lambda y, x: ((ks**2)*(np.real(scipy.special.hankel1(2, ks * ((x**2 + y**2) ** 0.5)))) * (x**2) / (x**2 + y**2))-\
+                      ((kp**2)*(np.real(scipy.special.hankel1(2, kp * ((x**2 + y**2) ** 0.5)))) * (x**2) / (x**2 + y**2))
+
+    g2 = lambda y, x: ((ks ** 2) * (np.imag(scipy.special.hankel1(2, ks * ((x**2 + y**2) ** 0.5)))) * (x**2) / (x**2 + y**2))-\
+                      ((kp ** 2) * (np.imag(scipy.special.hankel1(2, kp * ((x**2 + y**2) ** 0.5)))) * (x**2) / (x**2 + y**2))
 
     GG[0, 0] = (4*1j  / (4*mu)) *          scipy.integrate.dblquad(f0, 0, h / 2, lambda x: 0, lambda x: h / 2)[0] + \
                (4*1j  / (4*mu)) * 1j *     scipy.integrate.dblquad(g0, 0, h / 2, lambda x: 0, lambda x: h / 2)[0] + \
