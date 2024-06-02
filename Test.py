@@ -22,7 +22,7 @@ semi         = int(np.ceil(N/8)*128)
 #########################################################
 # Import Data
 #########################################################
-path = Path.cwd() /('Inverse_Elastic_Scattering')
+path = Path.cwd() /('Elastic-Full-Waveforrm-Inversion')
 
 if path.is_dir() == False :
    url = 'https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/z5x9rjn3b8-1.zip'

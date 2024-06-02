@@ -6,8 +6,8 @@ Full-Waveform Inversion problem. Our project consists of several methods, includ
 technique (First Method), the integrated application of deep learning and the physics underlying 
 the problem (Second Method) which includes several independent techniques, and a probabilistic
 deep learning technique (Third Method). The full paper for this source code can be found on [[1]](#1).\
-The dataset needed for this project is automatically uploaded within the codes. However, it's
-important to mention that for the Second and Third methods to be employed, a larger dataset
+The dataset needed for this project [[2]](#2) is automatically uploaded within the codes. However, it's
+important to mention that for the second and third methods to be employed, a larger dataset
 had to be generated. Due to limitations on uploading data, we have included the necessary code
 for creating auxiliary datasets.
 ## :key: Getting Started
@@ -19,7 +19,7 @@ documentation for library and hardware requirements.
 ### Installing
 1. Clone the repository to your local machine:
 ``` 
-git clone https://github.com/Vahid-Negahdari/Inverse_Elastic_Scattering.git
+git clone https://github.com/Vahid-Negahdari/Elastic-Full-Waveforrm-Inversion.git
 ```
 
 2. Change directory into the cloned repository:
@@ -56,6 +56,11 @@ python3 First-Method.py
 
 ## :books: References 
 <a id="1">[1]</a> 
+Dijkstra, E. W. (1968). 
+Go to statement considered harmful. 
+Communications of the ACM, 11(3), 147-148. 
+
+<a id="1">[2]</a> 
 Dijkstra, E. W. (1968). 
 Go to statement considered harmful. 
 Communications of the ACM, 11(3), 147-148.
