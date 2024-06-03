@@ -180,14 +180,15 @@ def Mat_G():
 
 A = Mat_G()
 
-
-
+A  = tf.constant(A,dtype='complex64')
+ud = tf.constant(ud,dtype='complex64')
+I  = tf.constant(np.eye(2*n**2,dtype='complex64'))
 
 ########################################################################################################################
 # Create Displacement Field and save it
 ########################################################################################################################
 
-for i in range(3,num_BIG_BATCH):
+for i in range(2,3):
     print(i)
     if (np.mod(i, 10) == 7):
          time.sleep(10 * 60)
@@ -200,7 +201,7 @@ for i in range(3,num_BIG_BATCH):
     for j in range(BIG_BATCH):
         M  = Density[j, :]
         MM = np.concatenate((M,M),axis=0)
-        u  = tf.linalg.solve(A*MM - np.eye(2*n**2,dtype='complex64'), -ud).numpy()
+        u  = tf.linalg.solve(A*MM - I, -ud).numpy()
         Surface[j, 0:n, : ]   = u[0:n, :]     ;     Surface[j, n:2*n, :] = u[(n**2):(n**2)+n, :]
         Displacement[j, :, :] = u
         RhoU[j, :, :]         = u*np.expand_dims(MM,axis=1)
