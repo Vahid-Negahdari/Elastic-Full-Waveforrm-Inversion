@@ -5,7 +5,7 @@ from pathlib import Path
 
 path = Path.cwd() /('Dataset')
 
-BIGG_BATCH  = 50
+BIGG_BATCH  = 1000
 n  = 51
 k  = 9
 
@@ -38,5 +38,5 @@ for i in range(BIGG_BATCH):
     Appr_Rho[i] = 1-tf.linalg.lstsq(C,Y,l2_regularizer=0.02).numpy()[:,0]
 
 
-E = np.sqrt( np.sum(np.square(Appr_Rho-Rho[0:BIGG_BATCH]),axis=1)/  np.sum(np.square(Rho[0:BIGG_BATCH]),axis=1)  )
+E = np.sqrt( np.sum(np.square(Appr_Rho-Rho),axis=1)/  np.sum(np.square(Rho),axis=1)  )
 print( 'Relative L2 Error for Test Dataset:',np.mean(E))
