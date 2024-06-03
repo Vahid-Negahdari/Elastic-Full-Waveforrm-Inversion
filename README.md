@@ -58,9 +58,7 @@ python3 Third_Method_New_VAE.py
 
 ## :books: References 
 <a id="1">[1]</a> 
-Dijkstra, E. W. (1968). 
-Go to statement considered harmful. 
-Communications of the ACM, 11(3), 147-148.\
+It will be out soon.\
 <a id="2">[2]</a> 
 Negahdari, Vahid (2024), “Elastic Full-Waveform-Inversion”,
 Mendeley Data, V1, doi: 10.17632/z2n2f23pxw.1 <https://data.mendeley.com/datasets/z2n2f23pxw/1>
