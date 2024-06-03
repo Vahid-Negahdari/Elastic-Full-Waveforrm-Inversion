@@ -34,15 +34,17 @@ python3 First Method (Direct_DL).py
 ```
 2.To apply techniques within the Second Method, initially run:
 ``` 
-python3 Create_Dataset_Github.py
+python3 Create Dataset.py
+python3 Displacement_Approximation.py
 ```    
 * To utilize the **Least Square** technique, execute:
   ``` 
-  python3 First-Method.py
+  python3 Second Method (Least_Square).py
   ```
 * To utilize the **Linear-to-Nonlinear** technique, execute:
   ``` 
-  python3 First-Method.py
+  python3 RhoU_Approximation.py
+  python3 Second Method (Linear to Nonlinear).py
   ```  
 * To utilize the **Inverse Convolution** technique, execute:
   ``` 
@@ -51,7 +53,7 @@ python3 Create_Dataset_Github.py
 3.To utilize the Third Method, the **New-VAE** Method,
 you first need to execute the linear-to-nonlinear process and then follow up with:
 ```
-python3 First-Method.py
+python3 Third Method (New_VAE).py
 ```
 
 ## :books: References 
