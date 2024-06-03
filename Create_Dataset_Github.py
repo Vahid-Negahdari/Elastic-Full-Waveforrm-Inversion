@@ -188,7 +188,7 @@ I  = tf.constant(np.eye(2*n**2,dtype='complex64'))
 # Create Displacement Field and save it
 ########################################################################################################################
 
-for i in range(2,3):
+for i in range(num_BIG_BATCH):
     print(i)
     if (np.mod(i, 10) == 7):
          time.sleep(10 * 60)
@@ -201,7 +201,7 @@ for i in range(2,3):
     for j in range(BIG_BATCH):
         M  = Density[j, :]
         MM = np.concatenate((M,M),axis=0)
-        u  = tf.linalg.solve(A*MM - I, -ud).numpy()
+        u  = tf.linalg.solve(A*MM-I, -ud).numpy()
         Surface[j, 0:n, : ]   = u[0:n, :]     ;     Surface[j, n:2*n, :] = u[(n**2):(n**2)+n, :]
         Displacement[j, :, :] = u
         RhoU[j, :, :]         = u*np.expand_dims(MM,axis=1)
