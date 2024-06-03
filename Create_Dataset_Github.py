@@ -189,7 +189,7 @@ A = Mat_G()
 
 for i in range(3,num_BIG_BATCH):
     print(i)
-    if (np.mod(i, 10) == 5):
+    if (np.mod(i, 10) == 7):
          time.sleep(10 * 60)
 
     Density      = 1-np.load(path / ('Density' + str(i) + '.npy'), allow_pickle=True)
