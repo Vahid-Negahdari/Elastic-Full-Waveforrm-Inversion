@@ -187,7 +187,7 @@ A = Mat_G()
 # Create Displacement Field and save it
 ########################################################################################################################
 
-for i in range(2,num_BIG_BATCH):
+for i in range(3,num_BIG_BATCH):
     print(i)
     if (np.mod(i, 10) == 5):
          time.sleep(10 * 60)
@@ -195,7 +195,7 @@ for i in range(2,num_BIG_BATCH):
     Density      = 1-np.load(path / ('Density' + str(i) + '.npy'), allow_pickle=True)
     Displacement = np.zeros([BIG_BATCH, 2*(n**2), n_u], dtype='complex64')
     Surface      = np.zeros([BIG_BATCH, 2 * n, n_u], dtype='complex64')
-#    RhoU         = np.zeros_like(Displacement)
+    RhoU         = np.zeros_like(Displacement)
 
     for j in range(BIG_BATCH):
         M  = Density[j, :]
@@ -203,11 +203,11 @@ for i in range(2,num_BIG_BATCH):
         u  = tf.linalg.solve(A*MM - np.eye(2*n**2,dtype='complex64'), -ud).numpy()
         Surface[j, 0:n, : ]   = u[0:n, :]     ;     Surface[j, n:2*n, :] = u[(n**2):(n**2)+n, :]
         Displacement[j, :, :] = u
-#        RhoU[j, :, :]         = u*np.expand_dims(MM,axis=1)
+        RhoU[j, :, :]         = u*np.expand_dims(MM,axis=1)
 
 
     np.save(path / ('Disp_Real' + str(i))   , np.real(Displacement))
     np.save(path / ('Disp_Complex' + str(i)), np.imag(Displacement))
     np.save(path / ('Surface' + str(i)), Surface)
-#    np.save(path / ('RhoU_Real' + str(i))   , np.real(RhoU))
-#    np.save(path / ('RhoU_Complex' + str(i)), np.imag(RhoU))
+    np.save(path / ('RhoU_Real' + str(i))   , np.real(RhoU))
+    np.save(path / ('RhoU_Complex' + str(i)), np.imag(RhoU))
