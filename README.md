@@ -30,11 +30,11 @@ cd All-In-One-Python-Projects/<Project_name>
 
 1.To execute the First Method, which is **Direct Deep Learning Inversion**:
 ``` 
-python3 First-Method.py
+python3 First Method (Direct_DL).py
 ```
 2.To apply techniques within the Second Method, initially run:
 ``` 
-python3 First-Method.py
+python3 Create_Dataset_Github.py
 ```    
 * To utilize the **Least Square** technique, execute:
   ``` 
