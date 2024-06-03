@@ -89,13 +89,13 @@ def Test_Score(epoch,Disp,rhou):
 for p in range(4):
     print(p)
     if   p==0:
-        name1 = 'Real'    ; a = 0
+        name1 = 'Real'    ; a = 0 ; print('Train Real and Horizontal part')
     elif  p==1:
-        name1 = 'Real'    ; a = 1
+        name1 = 'Real'    ; a = 1 ; print('Train Real and Vertical part')
     elif  p==2:
-        name1 = 'Complex' ; a = 0
+        name1 = 'Complex' ; a = 0 ; print('Train Complex and Horizontal part')
     elif  p==3:
-        name1 = 'Complex' ; a = 1
+        name1 = 'Complex' ; a = 1 ; print('Train Complex and Horizontal part')
 
 
     for t in range(3):
