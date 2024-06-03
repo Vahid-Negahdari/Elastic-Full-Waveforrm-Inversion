@@ -30,7 +30,7 @@ cd Elastic-Full-Waveforrm-Inversion
 
 1.To execute the First Method, which is **Direct Deep Learning Inversion**:
 ``` 
-python3 First_Method_(Direct_DL).py
+python3 First_Method_Direct_DL.py
 ```
 2.To apply techniques within the Second Method, initially run:
 ``` 
@@ -39,12 +39,12 @@ python3 Displacement_Approximation.py
 ```    
 * To utilize the **Least Square** technique, execute:
   ``` 
-  python3 Second_Method_(Least_Square).py
+  python3 Second_Method_Least_Square.py
   ```
 * To utilize the **Linear-to-Nonlinear** technique, execute:
   ``` 
   python3 RhoU_Approximation.py
-  python3 Second_Method_(Linear-to-Nonlinear).py
+  python3 Second_Method_Linear_to_Nonlinear.py
   ```  
 * To utilize the **Inverse Convolution** technique, execute:
   ``` 
@@ -53,7 +53,7 @@ python3 Displacement_Approximation.py
 3.To utilize the Third Method, the **New-VAE** Method,
 you first need to execute the linear-to-nonlinear process and then follow up with:
 ```
-python3 Third_Method_(New_VAE).py
+python3 Third_Method_New_VAE.py
 ```
 
 ## :books: References 
