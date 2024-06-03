@@ -24,7 +24,7 @@ git clone https://github.com/Vahid-Negahdari/Elastic-Full-Waveforrm-Inversion.gi
 
 2. Change directory into the cloned repository:
 ``` 
-cd All-In-One-Python-Projects/<Project_name>
+cd Elastic-Full-Waveforrm-Inversion
 ```
 ### Executing program
 

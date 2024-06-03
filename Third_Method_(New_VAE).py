@@ -27,7 +27,7 @@ lr1             = 0.0001
 #########################################################
 # Import Data
 #########################################################
-path  = Path('/home/cvl/Pycharm/pythonProject/Github')
+path = Path.cwd() /('Dataset')
 
 
 Density_train = np.load(path / ('Density_Train.npy'), allow_pickle=True)

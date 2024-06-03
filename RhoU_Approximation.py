@@ -19,7 +19,7 @@ semi           = int(np.ceil(2*(n**2)/16)*256)
 #########################################################
 # Import Data
 #########################################################
-path  = Path('/home/cvl/Pycharm/pythonProject/Github')
+path = Path.cwd() /('Dataset')
 
 Disp_appr_test = {'Real'   : np.load(path / ('Appr_Disp_Real27.npy'), allow_pickle=True) ,
                   'Complex': np.load(path / ('Appr_Disp_Complex27.npy'), allow_pickle=True) }

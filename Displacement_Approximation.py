@@ -21,7 +21,7 @@ semi           = int(np.ceil(4*n/16)*256)
 #########################################################
 # Import Data
 #########################################################
-path  = Path('/home/cvl/Pycharm/pythonProject/Github')
+path = Path.cwd() /('Dataset')
 
 Surface_test      = np.load(path / ('Surface27.npy'), allow_pickle=True)
 Surface_test      = np.concatenate((np.real(Surface_test), np.imag(Surface_test)), axis=1)

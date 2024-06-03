@@ -21,7 +21,7 @@ lr              = 0.003
 # Import Data
 #########################################################
 
-path  = Path('/home/cvl/Pycharm/pythonProject/Github')
+path = Path.cwd() /('Dataset')
 
 Density_test  = np.load(path / ('Density27.npy'), allow_pickle=True)
 Density_test  = np.reshape(Density_test, [BIGG_BATCH, n, n, 1])
