@@ -141,10 +141,10 @@ for i in range(28):
 
 
 
-d1=np.sqrt(np.sum(np.square(Fake_Dens[0:27000]-Density[0:27000]),axis=1)) / np.sqrt(np.sum(np.square(Density[0:27000]),axis=1))
-d2=np.sqrt(np.sum(np.square(Fake_Dens[27000:28000]-Density[27000:28000]),axis=1)) / np.sqrt(np.sum(np.square(Density[27000:28000]),axis=1))
-print(np.mean(d1))
-print(np.mean(d2))
+E1 = np.sqrt(np.sum(np.square(Fake_Dens[0:27000]-Density[0:27000]),axis=1)) / np.sqrt(np.sum(np.square(Density[0:27000]),axis=1))
+E2 = np.sqrt(np.sum(np.square(Fake_Dens[27000:28000]-Density[27000:28000]),axis=1)) / np.sqrt(np.sum(np.square(Density[27000:28000]),axis=1))
+print('Relative L2 Error for Train Dataset:',np.mean(E1))
+print('Relative L2 Error for Test Dataset:' ,np.mean(E2))
 
 
 

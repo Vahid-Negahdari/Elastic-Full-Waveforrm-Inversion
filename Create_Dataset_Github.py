@@ -189,7 +189,7 @@ I  = tf.constant(np.eye(2*n**2,dtype='complex64'))
 ########################################################################################################################
 
 for i in range(num_BIG_BATCH):
-    print(i)
+    print( str(i+1) + '/' +  str(num_BIG_BATCH))
     if (np.mod(i, 10) == 7):
          time.sleep(10 * 60)
 
