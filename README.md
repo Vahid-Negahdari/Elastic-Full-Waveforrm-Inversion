@@ -62,9 +62,8 @@ Dijkstra, E. W. (1968).
 Go to statement considered harmful. 
 Communications of the ACM, 11(3), 147-148.\
 <a id="2">[2]</a> 
-Dijkstra, E. W. (1968). 
-Go to statement considered harmful. 
-Communications of the ACM, 11(3), 147-148.
+Negahdari, Vahid (2024), “Elastic Full-Waveform-Inversion”,
+Mendeley Data, V1, doi: 10.17632/z2n2f23pxw.1
 
 ## :relaxed: Author  
 Vahid Negahdari
