@@ -26,11 +26,11 @@ path = Path.cwd() /('Dataset')
 
 if path.is_dir() == False :
    print('Downloading Dataset...')
-   url = 'https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/5ggj5twn75-1.zip'
+   url = 'https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/z2n2f23pxw-1.zip'
    http_response = urlopen(url)
    archive = ZipFile(BytesIO(http_response.read()))
    archive.extractall(path=path.parent)
-   (path.parent/('LINF_180012400')).rename('Dataset')
+   (path.parent/('Elastic Full-Waveform-Inversion')).rename('Dataset')
    print('Download Completed.')
 
 
