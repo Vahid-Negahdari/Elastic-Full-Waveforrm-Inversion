@@ -62,7 +62,7 @@ V. Negahdari, S. R. Moghadasi, M. R. Razvan, Elastic full-waveform inversion :
 How the physics of problem improves data-driven techniques? (2024).[arXiv:2406.05153)](https://arxiv.org/abs/2406.05153).\
 <a id="2">[2]</a> 
 Negahdari, Vahid (2024), “Elastic Full-Waveform-Inversion”,
-Mendeley Data, V1, doi: 10.17632/z2n2f23pxw.1 <https://data.mendeley.com/datasets/z2n2f23pxw/1>
+Mendeley Data, V1, [doi: 10.17632/z2n2f23pxw.1 ](https://data.mendeley.com/datasets/z2n2f23pxw/1)
 
 ## :relaxed: Author  
 Vahid Negahdari
